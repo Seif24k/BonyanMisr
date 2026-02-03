@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BonyanMisr - Next.js Website
+
+Modern, SEO-optimized website for BonyanMisr construction company built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- ✅ Modern Next.js 15 with App Router
+- ✅ TypeScript for type safety
+- ✅ Tailwind CSS for styling
+- ✅ Dark mode support
+- ✅ Responsive design
+- ✅ SEO optimized
+- ✅ Fast performance
+- ✅ Ready for 3D integration (Three.js)
+
+## Pages
+
+- **Home** - Hero section, services overview, stats, CTA
+- **Services** - Detailed service descriptions
+- **Portfolio** - Project showcase
+- **Careers** - Job opportunities
+- **Contact** - Contact form and information
 
 ## Getting Started
 
-First, run the development server:
+### Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build for Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Create production build
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Test production build locally
+npm start
+```
 
-## Learn More
+## Deployment to Hostinger
 
-To learn more about Next.js, take a look at the following resources:
+### Option 1: Static Export (Recommended for Hostinger)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Update `next.config.ts`:
+```typescript
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+};
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Build static files:
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+3. Upload the `out` folder contents to your Hostinger public_html directory via:
+   - FTP/SFTP
+   - Hostinger File Manager
+   - Git deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option 2: Node.js Hosting
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If your Hostinger plan supports Node.js:
+
+1. Upload all files to your hosting
+2. Install dependencies: `npm install`
+3. Build: `npm run build`
+4. Start: `npm start`
+5. Configure your domain to point to the Node.js app
+
+## Adding 3D Models (Three.js)
+
+To add 3D functionality:
+
+```bash
+# Install Three.js and React Three Fiber
+npm install three @react-three/fiber @react-three/drei
+```
+
+Then create 3D components in `components/3d/` folder.
+
+## Environment Variables
+
+Create `.env.local` for environment variables:
+
+```
+NEXT_PUBLIC_SITE_URL=https://bonyanmisr.com
+NEXT_PUBLIC_CONTACT_EMAIL=info@bonyanmisr.com
+```
+
+## Customization
+
+- **Colors**: Edit `tailwind.config.ts`
+- **Content**: Edit page files in `app/` directory
+- **Components**: Edit files in `components/` directory
+- **Fonts**: Update in `app/layout.tsx`
+
+## Tech Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Deployment**: Hostinger (Static or Node.js)
+
+## Support
+
+For issues or questions, contact the development team.
+
+---
+
+Built with ❤️ for BonyanMisr
