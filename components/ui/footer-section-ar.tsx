@@ -40,7 +40,7 @@ const footerLinks: FooterSection[] = [
     links: [
       { title: 'من نحن', href: '/ar/about' },
       { title: 'المشاريع', href: '/ar/portfolio' },
-      { title: 'شقتي', href: '/ar/my-apartment' },
+      { title: 'وحدتي', href: '/ar/my-apartment' },
       { title: 'اتصل بنا', href: '/ar/contact' },
     ],
   },
@@ -59,7 +59,7 @@ const footerLinks: FooterSection[] = [
       { title: 'فيسبوك', href: 'https://www.facebook.com/profile.php?id=61586708520062', icon: FacebookIcon },
       { title: 'إنستغرام', href: 'https://www.instagram.com/bonyanmisr.official/', icon: InstagramIcon },
       { title: 'تيك توك', href: 'https://www.tiktok.com/@bonyan.misr.official', icon: TikTokIcon },
-      { title: 'لينكد إن', href: 'https://linkedin.com', icon: LinkedinIcon },
+      { title: 'لينكد إن', href: 'https://www.linkedin.com/in/bonyan-misr-بنيان-مصر-b450883a7', icon: LinkedinIcon },
     ],
   },
 ];

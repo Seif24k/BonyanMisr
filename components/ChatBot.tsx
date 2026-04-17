@@ -169,114 +169,217 @@ export function ChatBot() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.8 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className={`fixed bottom-24 right-6 z-50 w-[400px] h-[600px] max-w-[calc(100vw-3rem)] max-h-[calc(100vh-8rem)] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700 flex flex-col overflow-hidden ${isArabic ? 'font-arabic' : ''
+                        className={`fixed bottom-24 right-6 z-50 w-[400px] h-[600px] max-w-[calc(100vw-3rem)] max-h-[calc(100vh-8rem)] ${isArabic ? 'font-arabic' : ''
                             }`}
                         dir={isArabic ? 'rtl' : 'ltr'}
                     >
-                        {/* Header */}
-                        <div className="bg-gradient-to-r from-[#003366] to-[#001a33] px-6 py-4 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center relative overflow-hidden">
-                                    <Image
-                                        src="/bonyanmisr-logo.png"
-                                        alt="BonyanMisr Logo"
-                                        fill
-                                        className="object-cover scale-110"
-                                    />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-white">{t.title}</h3>
-                                    <p className="text-xs text-gray-300">
-                                        {isArabic ? 'متصل الآن' : 'Online now'}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Messages Container */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
-                            {messages.map((message, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                                >
-                                    <div
-                                        className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === 'user'
-                                                ? 'bg-gradient-to-br from-[#d4af37] to-[#b8941f] text-white'
-                                                : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'
-                                            }`}
-                                    >
-                                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
-                                        <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'
-                                            }`}>
-                                            {message.timestamp.toLocaleTimeString(isArabic ? 'ar-EG' : 'en-US', {
-                                                hour: '2-digit',
-                                                minute: '2-digit'
-                                            })}
-                                        </p>
-                                    </div>
-                                </motion.div>
-                            ))}
-
-                            {/* Typing Indicator */}
-                            {isLoading && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="flex justify-start"
-                                >
-                                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-3 flex items-center gap-2">
-                                        <div className="flex gap-1">
-                                            <motion.div
-                                                className="w-2 h-2 bg-[#003366] rounded-full"
-                                                animate={{ y: [0, -6, 0] }}
-                                                transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                                            />
-                                            <motion.div
-                                                className="w-2 h-2 bg-[#003366] rounded-full"
-                                                animate={{ y: [0, -6, 0] }}
-                                                transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                                            />
-                                            <motion.div
-                                                className="w-2 h-2 bg-[#003366] rounded-full"
-                                                animate={{ y: [0, -6, 0] }}
-                                                transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                                            />
+                        <div className="relative group h-full">
+                            {/* Liquid Glass Container */}
+                            <div className="liquid-glass-chatbot h-full">
+                                {/* Floating light reflection effect */}
+                                <div className="liquid-light-reflection-chatbot" />
+                                
+                                <div className="flex flex-col h-full rounded-[32px] overflow-hidden relative z-10">
+                                    {/* Header */}
+                                    <div className="bg-gradient-to-r from-[#003366] to-[#001a33] px-6 py-4 flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center relative overflow-hidden">
+                                                <Image
+                                                    src="/bonyanmisr-logo.png"
+                                                    alt="BonyanMisr Logo"
+                                                    fill
+                                                    className="object-cover scale-110"
+                                                />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-semibold text-white">{t.title}</h3>
+                                                <p className="text-xs text-gray-300">
+                                                    {isArabic ? 'متصل الآن' : 'Online now'}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </motion.div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
 
-                        {/* Input Area */}
-                        <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                            <div className="flex gap-2">
-                                <input
-                                    type="text"
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    onKeyPress={handleKeyPress}
-                                    placeholder={t.placeholder}
-                                    disabled={isLoading}
-                                    className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#d4af37] disabled:opacity-50 disabled:cursor-not-allowed"
-                                />
-                                <button
-                                    onClick={handleSendMessage}
-                                    disabled={!inputValue.trim() || isLoading}
-                                    className="px-4 py-3 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center min-w-[48px]"
-                                    aria-label={t.send}
-                                >
-                                    {isLoading ? (
-                                        <Loader2 className="w-5 h-5 animate-spin" />
-                                    ) : (
-                                        <Send className="w-5 h-5" />
-                                    )}
-                                </button>
+                                    {/* Messages Container */}
+                                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
+                                        {messages.map((message, index) => (
+                                            <motion.div
+                                                key={index}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                                            >
+                                                <div
+                                                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === 'user'
+                                                            ? 'bg-gradient-to-br from-[#d4af37] to-[#b8941f] text-white'
+                                                            : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'
+                                                        }`}
+                                                >
+                                                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                                                    <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'
+                                                        }`}>
+                                                        {message.timestamp.toLocaleTimeString(isArabic ? 'ar-EG' : 'en-US', {
+                                                            hour: '2-digit',
+                                                            minute: '2-digit'
+                                                        })}
+                                                    </p>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+
+                                        {/* Typing Indicator */}
+                                        {isLoading && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                className="flex justify-start"
+                                            >
+                                                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-3 flex items-center gap-2">
+                                                    <div className="flex gap-1">
+                                                        <motion.div
+                                                            className="w-2 h-2 bg-[#003366] rounded-full"
+                                                            animate={{ y: [0, -6, 0] }}
+                                                            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                                                        />
+                                                        <motion.div
+                                                            className="w-2 h-2 bg-[#003366] rounded-full"
+                                                            animate={{ y: [0, -6, 0] }}
+                                                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                                                        />
+                                                        <motion.div
+                                                            className="w-2 h-2 bg-[#003366] rounded-full"
+                                                            animate={{ y: [0, -6, 0] }}
+                                                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                        <div ref={messagesEndRef} />
+                                    </div>
+
+                                    {/* Input Area */}
+                                    <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                value={inputValue}
+                                                onChange={(e) => setInputValue(e.target.value)}
+                                                onKeyPress={handleKeyPress}
+                                                placeholder={t.placeholder}
+                                                disabled={isLoading}
+                                                className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#d4af37] disabled:opacity-50 disabled:cursor-not-allowed"
+                                            />
+                                            <button
+                                                onClick={handleSendMessage}
+                                                disabled={!inputValue.trim() || isLoading}
+                                                className="px-4 py-3 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center min-w-[48px]"
+                                                aria-label={t.send}
+                                            >
+                                                {isLoading ? (
+                                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                                ) : (
+                                                    <Send className="w-5 h-5" />
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <style jsx>{`
+                                .liquid-glass-chatbot {
+                                    position: relative;
+                                    padding: 2px;
+                                    border-radius: 36px;
+                                    background: rgba(255, 255, 255, 0.08);
+                                    backdrop-filter: blur(24px) saturate(140%);
+                                    -webkit-backdrop-filter: blur(24px) saturate(140%);
+                                    border: 1px solid rgba(255, 255, 255, 0.15);
+                                    box-shadow: 
+                                        0 8px 40px rgba(0, 0, 0, 0.4),
+                                        0 2px 8px rgba(212, 175, 55, 0.1),
+                                        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+                                    transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+                                    overflow: hidden;
+                                }
+
+                                .liquid-glass-chatbot::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    height: 50%;
+                                    background: linear-gradient(
+                                        135deg,
+                                        rgba(255, 255, 255, 0.15) 0%,
+                                        rgba(212, 175, 55, 0.08) 30%,
+                                        transparent 60%
+                                    );
+                                    border-radius: 36px 36px 0 0;
+                                    pointer-events: none;
+                                    z-index: 1;
+                                    opacity: 0;
+                                    transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1);
+                                }
+
+                                .liquid-light-reflection-chatbot {
+                                    position: absolute;
+                                    top: -20%;
+                                    left: -10%;
+                                    width: 40%;
+                                    height: 60%;
+                                    background: radial-gradient(
+                                        ellipse at center,
+                                        rgba(255, 255, 255, 0.2) 0%,
+                                        rgba(212, 175, 55, 0.12) 25%,
+                                        transparent 70%
+                                    );
+                                    border-radius: 50%;
+                                    filter: blur(30px);
+                                    pointer-events: none;
+                                    z-index: 1;
+                                    opacity: 0;
+                                    animation: shimmer 8s ease-in-out infinite;
+                                    transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1);
+                                }
+
+                                @keyframes shimmer {
+                                    0%, 100% {
+                                        opacity: 0.6;
+                                        transform: translate(0, 0) scale(1);
+                                    }
+                                    50% {
+                                        opacity: 0.8;
+                                        transform: translate(10px, 5px) scale(1.05);
+                                    }
+                                }
+
+                                .group:hover .liquid-glass-chatbot {
+                                    background: rgba(255, 255, 255, 0.12);
+                                    transform: scale(1.01);
+                                    box-shadow: 
+                                        0 12px 50px rgba(0, 0, 0, 0.5),
+                                        0 4px 12px rgba(212, 175, 55, 0.15),
+                                        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+                                }
+
+                                .group:hover .liquid-glass-chatbot::before {
+                                    opacity: 1;
+                                }
+
+                                .group:hover .liquid-light-reflection-chatbot {
+                                    opacity: 0.6;
+                                }
+
+                                @supports not (backdrop-filter: blur(24px)) {
+                                    .liquid-glass-chatbot {
+                                        background: rgba(255, 255, 255, 0.15);
+                                    }
+                                }
+                            `}</style>
                         </div>
                     </motion.div>
                 )}

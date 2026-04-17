@@ -22,7 +22,7 @@ export const BlueprintBackground = () => {
             pathLength: 1,
             opacity: 0.15, // Low opacity for subtlety
             transition: {
-                pathLength: { delay: i * 0.5, duration: 3, ease: "easeInOut" },
+                pathLength: { delay: i * 0.5, duration: 3, ease: [0.42, 0, 0.58, 1] as any },
                 opacity: { delay: i * 0.5, duration: 0.5 }
             }
         })
@@ -30,15 +30,15 @@ export const BlueprintBackground = () => {
 
     return (
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* 1. Gradient Base - Light/Dark Mode */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-100 via-gray-50 to-white dark:from-slate-900 dark:via-[#0a0f1e] dark:to-black" />
+            {/* 1. Solid Base - Light/Dark Mode */}
+            <div className="absolute inset-0 bg-gray-50 dark:bg-slate-950" />
 
             {/* 2. Static Blueprint Grid - Visible in both modes */}
             <div
-                className="absolute inset-0 opacity-[0.15] dark:opacity-[0.15]"
+                className="absolute inset-0 opacity-[0.25] dark:opacity-[0.15]"
                 style={{
-                    backgroundImage: `linear-gradient(to right, #94a3b8 1px, transparent 1px),
-                           linear-gradient(to bottom, #94a3b8 1px, transparent 1px)`,
+                    backgroundImage: `linear-gradient(to right, #475569 1px, transparent 1px),
+                           linear-gradient(to bottom, #475569 1px, transparent 1px)`,
                     backgroundSize: `${gridSize}px ${gridSize}px`
                 }}
             />
@@ -89,9 +89,6 @@ export const BlueprintBackground = () => {
                     transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
                 />
             </svg>
-
-            {/* 4. Vignette Overlay for Depth */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.3)_100%)] dark:bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
         </div>
     );
 };

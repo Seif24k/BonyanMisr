@@ -115,21 +115,21 @@ export default function PortfolioAr() {
     <div className="min-h-screen bg-white dark:bg-slate-950 relative overflow-hidden" dir="rtl">
       {/* Blueprint Background */}
       <BlueprintBackground />
-      
+
       {/* Animated Floating Orbs */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 right-20 w-72 h-72 bg-blue-400/20 dark:bg-blue-600/30 rounded-full blur-[128px] animate-pulse"></div>
         <div className="absolute top-1/3 left-32 w-80 h-80 bg-purple-400/15 dark:bg-purple-600/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1000ms' }}></div>
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-cyan-400/15 dark:bg-cyan-500/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1500ms' }}></div>
       </div>
-      
+
       {/* Mouse Follow Light */}
       <MouseFollowLight />
 
       {/* Circular Gallery Section */}
-      <div className="w-full relative z-10" style={{ height: '300vh' }}>
+      <div className="w-full relative z-10 pt-20" style={{ height: '300vh' }}>
         <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
-          <div className="text-center mb-8 absolute top-24 z-10">
+          <div className="text-center mb-8 absolute top-16 z-10">
             <motion.h1
               initial={{ opacity: 0.5, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export default function PortfolioAr() {
               تحفنا الفنية
             </motion.h1>
           </div>
-          <div className="w-full h-full">
+          <div className="w-full h-full mt-20">
             <CircularGallery items={galleryData} radius={650} autoRotateSpeed={0.015} />
           </div>
         </div>

@@ -66,7 +66,7 @@ export default function Navigation() {
     { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'My Apartment', href: '/my-apartment' },
+    { label: 'My Unit', href: '/my-apartment' },
     { label: 'Contact', href: '/contact' },
   ];
 

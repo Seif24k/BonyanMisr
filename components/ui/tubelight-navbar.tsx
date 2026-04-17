@@ -6,6 +6,7 @@ import { Home, Building2, Phone } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MoonIcon } from "./moon";
+import Image from "next/image";
 
 interface NavItem {
   id: string;
@@ -27,20 +28,20 @@ const navItems: NavItem[] = [
     id: "projects",
     label: "Projects",
     labelAr: "المشاريع",
-    icon: <Building2 className="w-5 h-5" />,
+    icon: <Image src="/curtains.png" alt="Projects" width={20} height={20} className="w-5 h-5 object-contain brightness-0 invert-[0.4] dark:invert-[0.6]" />,
     href: "/portfolio",
   },
   {
     id: "services",
     label: "Services",
     labelAr: "الخدمات",
-    icon: <Building2 className="w-5 h-5" />,
+    icon: <Image src="/team.png" alt="Services" width={20} height={20} className="w-5 h-5 object-contain brightness-0 invert-[0.4] dark:invert-[0.6]" />,
     href: "/services",
   },
   {
     id: "my-apartment",
-    label: "My Apartment",
-    labelAr: "شقتي",
+    label: "My Unit",
+    labelAr: "وحدتي",
     icon: <Building2 className="w-5 h-5" />,
     href: "/my-apartment",
   },
@@ -194,7 +195,7 @@ export function TubelightNavbar() {
 
                     {/* Icon */}
                     <div className="flex items-center justify-center gap-2">
-                      <span className={isActive ? "text-[#d4af37]" : ""}>
+                      <span className={`${isActive ? "text-[#d4af37]" : ""} ${isActive ? "[&_img]:brightness-0 [&_img]:invert-[0.7] [&_img]:sepia [&_img]:saturate-[5] [&_img]:hue-rotate-[10deg]" : ""}`}>
                         {item.icon}
                       </span>
                       <span className="text-sm font-medium whitespace-nowrap">{isArabic ? item.labelAr : item.label}</span>
@@ -299,7 +300,7 @@ export function TubelightNavbar() {
                         transition={{ duration: 0.3 }}
                       />
                     )}
-                    <span className="relative z-10">{item.icon}</span>
+                    <span className={`relative z-10 ${isActive ? "[&_img]:brightness-0 [&_img]:invert-[0.7] [&_img]:sepia [&_img]:saturate-[5] [&_img]:hue-rotate-[10deg]" : ""}`}>{item.icon}</span>
                   </div>
 
                   {/* Label - Arabic for mobile */}

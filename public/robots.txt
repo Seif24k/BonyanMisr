@@ -1,0 +1,9 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin or sensitive paths (if any)
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://bonyanmisr.com/sitemap.xml

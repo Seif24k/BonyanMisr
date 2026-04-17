@@ -118,8 +118,7 @@ export const Simple3DLogo: React.FC<Simple3DLogoProps> = ({ modelPath }) => {
                 {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
             </Canvas>
 
-            {/* Gradient overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 via-transparent to-transparent pointer-events-none" />
+            {/* Removed gradient overlay - it was creating a visible line at section boundary */}
         </div>
     );
 };

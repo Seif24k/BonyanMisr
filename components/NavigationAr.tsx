@@ -64,7 +64,7 @@ export default function NavigationAr() {
     { label: 'الرئيسية', href: '/ar' },
     { label: 'الخدمات', href: '/ar/services' },
     { label: 'المشاريع', href: '/ar/portfolio' },
-    { label: 'شقتي', href: '/ar/my-apartment' },
+    { label: 'وحدتي', href: '/ar/my-apartment' },
     { label: 'اتصل بنا', href: '/ar/contact' },
   ];
 

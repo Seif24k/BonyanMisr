@@ -26,7 +26,7 @@ export const ProfessionalConnectAr = () => {
       ),
       gradient: 'from-blue-600 to-blue-400',
       shadowColor: 'rgba(59, 130, 246, 0.5)',
-      link: 'https://linkedin.com',
+      link: 'https://www.linkedin.com/in/bonyan-misr-بنيان-مصر-b450883a7',
       description: 'الشبكة المهنية'
     },
     {
