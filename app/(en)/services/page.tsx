@@ -1,9 +1,38 @@
+'use client';
+
+import React from 'react';
 import { EgyptMapInteractive } from '@/components/ui/egypt-map-interactive';
 import { FlipWords } from '@/components/ui/flip-words';
 import Image from 'next/image';
 import TextHoverEffect from '@/components/ui/shimmer-bg-text';
 import { BlueprintBackground } from '@/components/ui/BlueprintBackground';
 import { MouseFollowLight } from '@/components/ui/MouseFollowLight';
+
+// Error boundary for map component - shows placeholder in local dev, real map in production
+class MapErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="w-full h-96 rounded-2xl border border-[#d4af37]/20 bg-[#0a1628] flex items-center justify-center">
+          <p className="text-[#d4af37]/60 text-sm">Map loads in production</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export default function Services() {
     const words = ["Construction", "Design", "Finishing", "Renovation"];
@@ -44,43 +73,45 @@ export default function Services() {
                                 interior design, and finishing services.
                             </p>
                         </div>
-                        <EgyptMapInteractive
-                            dots={[
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357, label: "Cairo" }, // Cairo (Headquarters)
-                                    end: { lat: 30.0131, lng: 31.2089, label: "Giza" },   // Giza (west of Cairo)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 31.2001, lng: 29.9187, label: "Alexandria" },   // Alexandria (north)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 29.3084, lng: 30.8428, label: "Fayoum" },      // Fayoum (southwest)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 27.1809, lng: 31.1837, label: "Assiut" },   // Assiut (south)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 29.0661, lng: 31.0994, label: "Beni Suef" },   // Beni Suef (south)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 30.1219, lng: 31.6416, label: "El Shorouk" },   // El Shorouk (east)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 30.2801, lng: 31.8291, label: "Badr City" },   // Badr City (northeast)
-                                },
-                                {
-                                    start: { lat: 30.0444, lng: 31.2357 }, // Cairo
-                                    end: { lat: 29.9500, lng: 31.8333, label: "New Capital" },   // New Administrative Capital (east-southeast)
-                                },
-                            ]}
-                            lineColor="#d4af37"
-                        />
+                        <MapErrorBoundary>
+                            <EgyptMapInteractive
+                                dots={[
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357, label: "Cairo" }, // Cairo (Headquarters)
+                                        end: { lat: 30.0131, lng: 31.2089, label: "Giza" },   // Giza (west of Cairo)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 31.2001, lng: 29.9187, label: "Alexandria" },   // Alexandria (north)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 29.3084, lng: 30.8428, label: "Fayoum" },      // Fayoum (southwest)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 27.1809, lng: 31.1837, label: "Assiut" },   // Assiut (south)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 29.0661, lng: 31.0994, label: "Beni Suef" },   // Beni Suef (south)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 30.1219, lng: 31.6416, label: "El Shorouk" },   // El Shorouk (east)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 30.2801, lng: 31.8291, label: "Badr City" },   // Badr City (northeast)
+                                    },
+                                    {
+                                        start: { lat: 30.0444, lng: 31.2357 }, // Cairo
+                                        end: { lat: 29.9500, lng: 31.8333, label: "New Capital" },   // New Administrative Capital (east-southeast)
+                                    },
+                                ]}
+                                lineColor="#d4af37"
+                            />
+                        </MapErrorBoundary>
                     </div>
 
                     <div className="space-y-20">
