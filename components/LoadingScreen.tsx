@@ -8,10 +8,13 @@ export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay = isMobile || prefersReducedMotion ? 180 : 420;
+
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);
@@ -22,7 +25,7 @@ export default function LoadingScreen() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.25 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-gray-900"
         >
           <div className="flex flex-col items-center gap-6">
@@ -37,7 +40,7 @@ export default function LoadingScreen() {
                 <span className="text-primary">BONYAN</span> MISR
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Building Egypt's Future
+                Building Egypt&apos;s Future
               </p>
             </motion.div>
           </div>

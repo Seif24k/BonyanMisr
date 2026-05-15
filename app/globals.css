@@ -44,6 +44,12 @@ textarea {
 
 @variant dark (&:where(.dark, .dark *));
 
+html {
+  overflow-x: hidden;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 @keyframes star-btn {
   0% {
     offset-distance: 0%;

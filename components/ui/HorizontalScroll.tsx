@@ -27,13 +27,23 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(false);
 
   // Create many duplicates for smooth infinite loop
-  const duplicatedItems = [...items, ...items, ...items, ...items, ...items];
+  const duplicatedItems = isAutoScrollEnabled ? [...items, ...items, ...items, ...items, ...items] : items;
+
+  useEffect(() => {
+    const media = window.matchMedia('(pointer: coarse), (prefers-reduced-motion: reduce)');
+    const updateAutoScroll = () => setIsAutoScrollEnabled(!media.matches);
+
+    updateAutoScroll();
+    media.addEventListener('change', updateAutoScroll);
+    return () => media.removeEventListener('change', updateAutoScroll);
+  }, []);
 
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container || !isAutoScrollEnabled) return;
 
     let intervalId: NodeJS.Timeout;
     const startTimeoutId: NodeJS.Timeout = setTimeout(() => {
@@ -62,7 +72,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         clearInterval(intervalId);
       }
     };
-  }, [isPaused, items.length]);
+  }, [isPaused, items.length, isAutoScrollEnabled]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -88,7 +98,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
+            className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 opacity-100 shadow-lg backdrop-blur-sm transition-opacity duration-300 hover:bg-white dark:bg-gray-800/90 dark:hover:bg-gray-700 md:left-4 md:h-12 md:w-12 md:opacity-0 md:group-hover:opacity-100"
         >
           <ChevronLeft className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
@@ -96,7 +106,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
+            className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 opacity-100 shadow-lg backdrop-blur-sm transition-opacity duration-300 hover:bg-white dark:bg-gray-800/90 dark:hover:bg-gray-700 md:right-4 md:h-12 md:w-12 md:opacity-0 md:group-hover:opacity-100"
         >
           <ChevronRight className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
@@ -105,15 +115,15 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         <div
           ref={scrollRef}
           dir="ltr"
-          className="flex gap-6 overflow-x-auto scrollbar-hide px-4 md:px-8 cursor-grab active:cursor-grabbing"
+          className="scrollbar-hide flex cursor-grab gap-4 overflow-x-auto px-4 active:cursor-grabbing md:gap-6 md:px-8"
           style={{ scrollBehavior: 'auto' }}
         >
           {duplicatedItems.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
-              className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[45vw] group/card"
+              className="group/card w-[86vw] flex-shrink-0 md:w-[70vw] lg:w-[45vw]"
             >
-              <div className="relative h-[350px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative h-[390px] overflow-hidden rounded-2xl bg-gray-100 shadow-xl transition-shadow duration-300 hover:shadow-2xl dark:bg-gray-800 sm:h-[460px] md:h-[500px]">
                 {/* Image */}
                 <div className="relative h-full w-full">
                   <Image
@@ -127,7 +137,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
                 </div>
 
                 {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-8" dir="auto">
+                <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-8" dir="auto">
                   {/* Category Badge */}
                   <div className="mb-4">
                     <span className="px-4 py-2 bg-[#d4af37]/20 backdrop-blur-sm border border-[#d4af37]/50 rounded-full text-[#d4af37] text-sm font-bold uppercase tracking-wider">
@@ -136,17 +146,17 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                  <h3 className="mb-2 text-2xl font-bold leading-tight text-white md:text-4xl">
                     {item.title}
                   </h3>
 
                   {/* Subtitle */}
-                  <p className="text-xl text-gray-300 mb-3">
+                  <p className="mb-3 text-base text-gray-300 md:text-xl">
                     {item.subtitle}
                   </p>
 
                   {/* Description */}
-                  <p className="text-base text-gray-400 mb-6 line-clamp-2">
+                  <p className="mb-5 line-clamp-2 text-sm text-gray-400 md:mb-6 md:text-base">
                     {item.description}
                   </p>
 

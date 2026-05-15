@@ -13,7 +13,7 @@ class MapErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean }
 > {
-  constructor(props: any) {
+  constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
@@ -65,10 +65,10 @@ export default function Services() {
                     {/* Service Coverage Map */}
                     <div className="mb-20">
                         <div className="text-center mb-12">
-                            <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-2xl">
+                            <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 drop-shadow-2xl dark:text-white sm:text-5xl">
                                 Expert <FlipWords words={words} duration={3000} className="text-primary" /> Services
                             </h1>
-                            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto drop-shadow-xl">
+                            <p className="mx-auto max-w-3xl text-base leading-7 text-gray-700 drop-shadow-xl dark:text-gray-300 sm:text-xl">
                                 BonyanMisr proudly serves major cities across Egypt, delivering excellence in construction,
                                 interior design, and finishing services.
                             </p>
@@ -144,7 +144,7 @@ export default function Services() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="relative h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96">
                                 <Image
                                     src="/construction-site.jpg"
                                     alt="Construction site with heavy machinery"
@@ -157,7 +157,7 @@ export default function Services() {
 
                         {/* Interior Design Service */}
                         <div className="grid md:grid-cols-2 gap-12 items-center">
-                            <div className="order-2 md:order-1 h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="relative order-2 h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96 md:order-1">
                                 <Image
                                     src="/interior-design.jpg"
                                     alt="Modern interior design"
@@ -222,7 +222,7 @@ export default function Services() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="relative h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96">
                                 <Image
                                     src="/finishing.jpg"
                                     alt="High-end finishing work"

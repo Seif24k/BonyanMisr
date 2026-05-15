@@ -1,10 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import { FlipWords } from '@/components/ui/flip-words';
-import LightRays from '@/components/ui/LightRays';
-import { Simple3DLogo } from '@/components/Simple3DLogo';
-import { cn } from '@/lib/utils';
+
+type Simple3DLogoProps = {
+  className?: string;
+  modelScale?: number;
+};
+
+const Simple3DLogo = dynamic<Simple3DLogoProps>(
+  () => import('@/components/Simple3DLogo').then(mod => mod.Simple3DLogo),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 type HomeHeroProps = {
   locale: 'en' | 'ar';
@@ -12,165 +25,177 @@ type HomeHeroProps = {
 
 const heroContent = {
   en: {
-    dir: 'ltr',
+    eyebrow: 'BONYAN MISR',
+    title: "Building Egypt's Future with",
     words: ['Excellence', 'Innovation', 'Quality', 'Precision'],
-    headline: "Building Egypt's Future with",
-    paragraph:
+    description:
       'Excellence in Construction, Interior Design, and High-End Finishing. We transform spaces into masterpieces across Egypt.',
-    primaryCta: { label: 'View Projects', href: '/portfolio' },
-    secondaryCta: { label: 'Contact Us', href: '/contact' },
+    primary: 'View Projects',
+    primaryHref: '/portfolio',
+    secondary: 'Contact Us',
+    secondaryHref: '/contact',
   },
   ar: {
-    dir: 'rtl',
+    eyebrow: 'بنيان مصر',
+    title: 'بناء مستقبل مصر مع',
     words: ['التميز', 'الابتكار', 'الجودة', 'الدقة'],
-    headline: 'بناء مستقبل مصر مع',
-    paragraph:
+    description:
       'التميز في البناء والتصميم الداخلي والتشطيبات الفاخرة. نحول المساحات إلى تحف فنية في جميع أنحاء مصر.',
-    primaryCta: { label: 'عرض المشاريع', href: '/ar/portfolio' },
-    secondaryCta: { label: 'اتصل بنا', href: '/ar/contact' },
+    primary: 'عرض المشاريع',
+    primaryHref: '/ar/portfolio',
+    secondary: 'اتصل بنا',
+    secondaryHref: '/ar/contact',
   },
-} as const;
+};
+
+const canUseEnhancedHeroEffects = () => {
+  if (typeof window === 'undefined') return false;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktopWidth = window.matchMedia('(min-width: 768px)').matches;
+  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+
+  return isDesktopWidth && isFinePointer && !prefersReducedMotion && !saveData;
+};
+
+function useEnhancedHeroEffects() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const queries = [
+      window.matchMedia('(prefers-reduced-motion: reduce)'),
+      window.matchMedia('(min-width: 768px)'),
+      window.matchMedia('(hover: hover) and (pointer: fine)'),
+    ];
+    const update = () => setEnabled(canUseEnhancedHeroEffects());
+    const frameId = window.requestAnimationFrame(update);
+
+    queries.forEach(query => query.addEventListener('change', update));
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      queries.forEach(query => query.removeEventListener('change', update));
+    };
+  }, []);
+
+  return enabled;
+}
 
 export function HomeHero({ locale }: HomeHeroProps) {
   const content = heroContent[locale];
-  const isArabic = locale === 'ar';
+  const isRTL = locale === 'ar';
+  const enhancedHeroEffects = useEnhancedHeroEffects();
 
   return (
     <section
-      data-home-hero={locale}
-      className="relative isolate min-h-[100svh] overflow-hidden bg-transparent px-4 pb-20 pt-16 sm:px-6 sm:pb-36 sm:pt-20 md:pb-20 lg:px-8 lg:pt-28"
-      dir={content.dir}
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className="relative isolate min-h-[100svh] overflow-hidden bg-transparent px-4 pb-36 pt-24 sm:px-6 sm:pt-28 md:pb-28 lg:px-10 lg:pb-20 lg:pt-24"
     >
-      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-70">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={0.8}
-          lightSpread={0.6}
-          rayLength={2.5}
-          followMouse={false}
-          mouseInfluence={0.15}
-          fadeDistance={0.85}
-          saturation={1.3}
-          pulsating={false}
-        />
-      </div>
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_62%_0%,rgba(246,231,162,0.32),transparent_30%),radial-gradient(circle_at_80%_42%,rgba(90,159,212,0.13),transparent_38%),radial-gradient(circle_at_42%_58%,rgba(212,175,55,0.12),transparent_32%)] dark:bg-[radial-gradient(circle_at_62%_0%,rgba(246,231,162,0.18),transparent_30%),radial-gradient(circle_at_80%_42%,rgba(90,159,212,0.16),transparent_38%),radial-gradient(circle_at_42%_58%,rgba(212,175,55,0.11),transparent_32%)]" />
 
       <div
-        aria-hidden="true"
-        className="absolute inset-0 z-[3] bg-[radial-gradient(circle_at_72%_35%,rgba(212,175,55,0.24),transparent_31%),radial-gradient(circle_at_18%_24%,rgba(10,25,47,0.18),transparent_28%)] dark:bg-[radial-gradient(circle_at_70%_34%,rgba(212,175,55,0.2),transparent_34%),radial-gradient(circle_at_22%_20%,rgba(45,91,140,0.24),transparent_30%)]"
+        className={`pointer-events-none absolute inset-y-0 z-[3] hidden w-[62vw] lg:block ${
+          isRTL
+            ? 'left-0 bg-[linear-gradient(90deg,rgba(10,25,47,0.16),rgba(10,25,47,0.04),transparent)] dark:bg-[linear-gradient(90deg,rgba(212,175,55,0.10),rgba(10,25,47,0.10),transparent)]'
+            : 'right-0 bg-[linear-gradient(270deg,rgba(10,25,47,0.16),rgba(10,25,47,0.04),transparent)] dark:bg-[linear-gradient(270deg,rgba(212,175,55,0.10),rgba(10,25,47,0.10),transparent)]'
+        }`}
       />
       <div
-        aria-hidden="true"
-        className="absolute inset-0 z-[4] opacity-45 [background-image:linear-gradient(rgba(10,25,47,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(10,25,47,0.08)_1px,transparent_1px)] [background-size:72px_72px] dark:opacity-35 dark:[background-image:linear-gradient(rgba(212,175,55,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.1)_1px,transparent_1px)]"
-      />
-      <div
-        aria-hidden="true"
-        className={cn(
-          'absolute inset-y-0 z-[5] hidden w-[58%] lg:block',
-          isArabic
-            ? 'right-0 bg-[linear-gradient(270deg,rgba(247,248,243,0.96)_0%,rgba(247,248,243,0.84)_54%,rgba(247,248,243,0)_100%)] dark:bg-[linear-gradient(270deg,rgba(8,15,28,0.96)_0%,rgba(8,15,28,0.86)_54%,rgba(8,15,28,0)_100%)]'
-            : 'left-0 bg-[linear-gradient(90deg,rgba(247,248,243,0.96)_0%,rgba(247,248,243,0.84)_54%,rgba(247,248,243,0)_100%)] dark:bg-[linear-gradient(90deg,rgba(8,15,28,0.96)_0%,rgba(8,15,28,0.86)_54%,rgba(8,15,28,0)_100%)]'
-        )}
-      />
-      <div
-        aria-hidden="true"
-        className={cn(
-          'absolute bottom-16 top-24 z-[6] hidden w-px bg-gradient-to-b from-transparent via-[#d4af37]/45 to-transparent lg:block',
-          isArabic ? 'right-[52%]' : 'left-[52%]'
-        )}
+        className={`pointer-events-none absolute inset-y-0 z-[4] w-[92vw] sm:w-[72vw] lg:w-[54vw] ${
+          isRTL
+            ? 'right-0 bg-[linear-gradient(270deg,rgba(246,248,248,0.95),rgba(246,248,248,0.80),rgba(246,248,248,0.24),transparent)] dark:bg-[linear-gradient(270deg,rgba(11,14,20,0.96),rgba(11,14,20,0.80),rgba(11,14,20,0.24),transparent)]'
+            : 'left-0 bg-[linear-gradient(90deg,rgba(246,248,248,0.95),rgba(246,248,248,0.80),rgba(246,248,248,0.24),transparent)] dark:bg-[linear-gradient(90deg,rgba(11,14,20,0.96),rgba(11,14,20,0.80),rgba(11,14,20,0.24),transparent)]'
+        }`}
       />
 
-      <div
-        className="relative z-10 mx-auto grid max-w-7xl items-center gap-5 lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.88fr)_minmax(470px,1.12fr)] lg:gap-16"
-        dir="ltr"
-      >
+      <div className="relative z-20 mx-auto flex max-w-7xl flex-col items-stretch justify-start gap-4 sm:gap-8 lg:grid lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.88fr)_minmax(440px,1.12fr)] lg:items-center lg:justify-center lg:gap-4 xl:gap-8">
         <div
-          data-home-hero-copy
-          className={cn(
-            'relative z-20 order-2 max-w-xl py-5 text-center sm:py-6 lg:max-w-[34rem] lg:py-0',
-            isArabic ? 'lg:order-2 lg:ml-auto lg:text-right' : 'lg:order-1 lg:mr-auto lg:text-left'
-          )}
-          dir={content.dir}
+          className={`relative z-30 order-2 max-w-[46rem] ${
+            isRTL
+              ? 'text-right lg:order-1 lg:justify-self-end lg:pr-2'
+              : 'text-left lg:order-1 lg:justify-self-start lg:pl-2'
+          }`}
         >
           <div
-            aria-hidden="true"
-            className={cn(
-              'absolute -inset-x-4 -inset-y-5 -z-10 bg-[linear-gradient(180deg,rgba(247,248,243,0.94),rgba(247,248,243,0.78))] shadow-[0_28px_90px_rgba(10,25,47,0.18)] dark:bg-[linear-gradient(180deg,rgba(8,15,28,0.88),rgba(8,15,28,0.7))] dark:shadow-[0_28px_90px_rgba(0,0,0,0.32)] sm:-inset-x-6 sm:-inset-y-6 lg:-inset-y-10',
-              isArabic
-                ? 'lg:[clip-path:polygon(8%_0,100%_0,100%_100%,0_100%)]'
-                : 'lg:[clip-path:polygon(0_0,92%_0,100%_100%,0_100%)]'
-            )}
+            className={`pointer-events-none absolute -inset-x-5 -inset-y-6 -z-10 sm:-inset-x-8 sm:-inset-y-8 ${
+              isRTL
+                ? 'bg-[linear-gradient(270deg,rgba(246,248,248,0.86),rgba(246,248,248,0.56),transparent)] dark:bg-[linear-gradient(270deg,rgba(11,14,20,0.92),rgba(11,14,20,0.60),transparent)]'
+                : 'bg-[linear-gradient(90deg,rgba(246,248,248,0.86),rgba(246,248,248,0.56),transparent)] dark:bg-[linear-gradient(90deg,rgba(11,14,20,0.92),rgba(11,14,20,0.60),transparent)]'
+            }`}
           />
 
-          <h1 className="mx-auto max-w-[12ch] text-[clamp(2.15rem,10vw,3.35rem)] font-black leading-[0.94] text-[oklch(0.19_0.018_255)] drop-shadow-[0_10px_28px_rgba(247,248,243,0.5)] dark:text-[oklch(0.96_0.012_92)] dark:drop-shadow-[0_16px_34px_rgba(0,0,0,0.36)] sm:text-[clamp(2.5rem,8vw,4.8rem)] lg:mx-0 lg:max-w-[11ch] lg:text-[clamp(4rem,5.8vw,6.05rem)]">
-            {content.headline}
-            <span
-              className={cn(
-                'mt-3 flex min-h-[1.04em] items-center justify-center text-[#b8860b] drop-shadow-[0_0_26px_rgba(212,175,55,0.34)] dark:text-[#f1c85d] dark:drop-shadow-[0_0_34px_rgba(212,175,55,0.42)]',
-                isArabic ? 'lg:justify-end' : 'lg:justify-start'
-              )}
-            >
-              <FlipWords
-                words={[...content.words]}
-                duration={3000}
-                className={cn(
-                  'px-0 text-current',
-                  isArabic ? 'text-right' : 'text-left'
-                )}
-              />
+          <p
+            className={`mb-4 flex items-center gap-3 text-xs font-black uppercase tracking-[0.34em] text-[oklch(0.48_0.12_83)] dark:text-[oklch(0.82_0.12_86)] sm:mb-5 ${
+              isRTL ? 'justify-end' : 'justify-start'
+            }`}
+          >
+            <span className="h-px w-12 bg-primary shadow-[0_0_24px_rgba(212,175,55,0.82)]" />
+            <span>{content.eyebrow}</span>
+          </p>
+
+          <h1 className="max-w-[12ch] text-4xl font-black leading-[0.96] text-[oklch(0.23_0.03_255)] drop-shadow-[0_8px_28px_rgba(10,25,47,0.18)] dark:text-[oklch(0.94_0.018_86)] dark:drop-shadow-[0_10px_30px_rgba(0,0,0,0.62)] sm:text-5xl md:max-w-[13ch] md:text-6xl xl:text-7xl">
+            {content.title}
+            <span className="mt-2 block text-primary drop-shadow-[0_10px_34px_rgba(212,175,55,0.46)]">
+              <FlipWords words={content.words} duration={3000} className="text-primary" />
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-[64ch] text-sm font-semibold leading-7 text-[oklch(0.28_0.018_255)] dark:text-[oklch(0.9_0.014_92)] sm:text-base sm:leading-8 lg:mx-0 lg:mt-6 lg:text-xl">
-            {content.paragraph}
+          <p className="mt-5 max-w-[38rem] text-base font-semibold leading-7 text-[oklch(0.36_0.025_255)] drop-shadow-[0_4px_18px_rgba(246,248,248,0.88)] dark:text-[oklch(0.82_0.018_255)] dark:drop-shadow-[0_6px_20px_rgba(0,0,0,0.65)] sm:mt-6 sm:text-lg sm:leading-8 lg:text-xl">
+            {content.description}
           </p>
 
           <div
-            data-home-hero-actions
-            className={cn(
-              'mt-6 flex flex-row flex-wrap items-center justify-center gap-3 lg:mt-8',
-              isArabic ? 'lg:justify-end' : 'lg:justify-start'
-            )}
+            className={`mt-7 flex flex-wrap gap-3 sm:gap-4 ${
+              isRTL ? 'justify-end' : 'justify-start'
+            }`}
           >
             <Link
-              href={content.primaryCta.href}
-              className="inline-flex min-h-12 flex-1 items-center justify-center rounded-lg bg-[#d4af37] px-5 py-3 text-sm font-black text-[oklch(0.17_0.018_255)] shadow-[0_18px_45px_rgba(212,175,55,0.34)] transition hover:bg-[#c49b22] hover:shadow-[0_22px_55px_rgba(212,175,55,0.44)] focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:ring-offset-2 focus:ring-offset-[oklch(0.96_0.012_92)] sm:flex-none sm:px-7 sm:text-base dark:focus:ring-offset-[oklch(0.13_0.018_255)]"
+              href={content.primaryHref}
+              className="inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-black text-[oklch(0.19_0.03_255)] shadow-[0_18px_45px_rgba(212,175,55,0.36)] transition hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-[0_22px_52px_rgba(212,175,55,0.46)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[oklch(0.97_0.006_90)] dark:focus:ring-offset-[oklch(0.13_0.025_255)] sm:min-h-12 sm:px-7 sm:text-base"
             >
-              {content.primaryCta.label}
+              {content.primary}
             </Link>
             <Link
-              href={content.secondaryCta.href}
-              className="inline-flex min-h-12 flex-1 items-center justify-center rounded-lg border border-[rgba(10,25,47,0.28)] bg-[oklch(0.2_0.024_255)] px-5 py-3 text-sm font-black text-[oklch(0.96_0.012_92)] shadow-[0_18px_45px_rgba(10,25,47,0.18)] transition hover:bg-[oklch(0.25_0.03_255)] focus:outline-none focus:ring-2 focus:ring-[oklch(0.2_0.024_255)] focus:ring-offset-2 focus:ring-offset-[oklch(0.96_0.012_92)] sm:flex-none sm:px-7 sm:text-base dark:border-[#d4af37]/35 dark:bg-[oklch(0.94_0.018_92)] dark:text-[oklch(0.17_0.018_255)] dark:hover:bg-[oklch(0.88_0.022_92)] dark:focus:ring-[#d4af37] dark:focus:ring-offset-[oklch(0.13_0.018_255)]"
+              href={content.secondaryHref}
+              className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[oklch(0.50_0.03_255/0.30)] bg-[oklch(0.98_0.006_90/0.72)] px-5 py-3 text-sm font-black text-[oklch(0.24_0.03_255)] shadow-[0_18px_42px_rgba(10,25,47,0.12)] backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-primary hover:text-[oklch(0.44_0.12_83)] dark:border-[oklch(0.88_0.02_86/0.20)] dark:bg-[oklch(0.20_0.025_255/0.70)] dark:text-[oklch(0.90_0.015_86)] dark:shadow-[0_18px_42px_rgba(0,0,0,0.35)] dark:hover:text-primary sm:min-h-12 sm:px-7 sm:text-base"
             >
-              {content.secondaryCta.label}
+              {content.secondary}
             </Link>
           </div>
         </div>
 
-        <div
-          data-home-hero-logo
-          className={cn(
-            'relative order-1 h-[240px] w-full sm:h-[310px] lg:h-auto lg:min-h-[650px]',
-            isArabic ? 'lg:order-1' : 'lg:order-2'
-          )}
-          aria-hidden="true"
-        >
-          <div className="absolute left-1/2 top-1/2 h-[min(86vw,560px)] w-[min(86vw,560px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.28)_0%,rgba(212,175,55,0.1)_38%,rgba(10,25,47,0)_70%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(212,175,55,0.26)_0%,rgba(45,91,140,0.12)_44%,rgba(10,25,47,0)_72%)]" />
-          <div className="absolute left-1/2 top-1/2 h-[min(76vw,500px)] w-[min(76vw,500px)] -translate-x-1/2 -translate-y-1/2 border border-[#d4af37]/25 shadow-[0_0_80px_rgba(212,175,55,0.18)] [clip-path:polygon(50%_0,100%_50%,50%_100%,0_50%)] dark:border-[#d4af37]/30" />
-          <div className="absolute left-1/2 top-1/2 h-[min(62vw,420px)] w-[min(62vw,420px)] -translate-x-1/2 -translate-y-1/2 border border-[rgba(10,25,47,0.16)] [clip-path:polygon(12%_8%,88%_8%,100%_50%,88%_92%,12%_92%,0_50%)] dark:border-[#d4af37]/20" />
-          <Simple3DLogo
-            className="absolute inset-0 z-10 h-full w-full drop-shadow-[0_28px_70px_rgba(10,25,47,0.38)] dark:drop-shadow-[0_28px_80px_rgba(212,175,55,0.28)]"
-            canvasClassName="h-full w-full"
-            cameraPosition={[0, 0, 7.2]}
-            modelPosition={[0, -0.18, 0]}
-            modelScale={3.05}
-            baseRotation={[0, -0.24, 0]}
-            rotationMode="sway"
-            rotationSpeed={0.75}
-            rotationAmplitude={0.18}
-            floatIntensity={0.22}
-          />
+        <div className="relative z-20 order-1 flex h-[25svh] min-h-[170px] max-h-[245px] w-full items-center justify-center overflow-hidden sm:h-[38svh] sm:min-h-[220px] sm:max-h-[390px] lg:order-2 lg:h-[min(78vh,780px)] lg:max-h-none">
+          <div className="absolute inset-x-[4%] bottom-[5%] top-[4%] -skew-x-6 border-y border-primary/35 bg-[linear-gradient(120deg,rgba(212,175,55,0.18),rgba(10,25,47,0.04),rgba(90,159,212,0.12))] shadow-[0_0_76px_rgba(212,175,55,0.20)] dark:border-primary/25 dark:bg-[linear-gradient(120deg,rgba(212,175,55,0.10),rgba(90,159,212,0.10),rgba(11,14,20,0.04))] dark:shadow-[0_0_96px_rgba(90,159,212,0.18)]" />
+          <div className="absolute bottom-[12%] h-px w-[82%] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_34px_rgba(212,175,55,0.84)]" />
+          <div className="absolute left-[10%] top-[12%] h-16 w-px bg-gradient-to-b from-primary/70 to-transparent shadow-[0_0_28px_rgba(212,175,55,0.62)] sm:h-24 lg:h-36" />
+          <div className="absolute right-[10%] top-[20%] h-14 w-px bg-gradient-to-b from-[oklch(0.72_0.09_236)] to-transparent shadow-[0_0_26px_rgba(90,159,212,0.48)] sm:h-20 lg:h-32" />
+          <div
+            className={`relative z-10 flex h-full w-full items-center justify-center pointer-events-none drop-shadow-[0_24px_46px_rgba(10,25,47,0.24)] dark:drop-shadow-[0_30px_60px_rgba(0,0,0,0.62)] ${
+              isRTL ? 'lg:translate-x-[8%]' : 'lg:-translate-x-[8%]'
+            }`}
+          >
+            <div className="relative h-[82%] w-[min(74vw,360px)] sm:w-[min(42vw,420px)] lg:h-[78%]">
+              {!enhancedHeroEffects ? (
+                <Image
+                  src="/bonyanmisr-logo-transparent.webp"
+                  alt="Bonyan Misr logo"
+                  fill
+                  priority
+                  sizes="(max-width: 767px) 74vw, 420px"
+                  className="object-contain"
+                />
+              ) : null}
+            </div>
+          </div>
+          {enhancedHeroEffects ? (
+            <Simple3DLogo
+              className={`absolute inset-0 z-20 h-full w-full scale-[0.96] pointer-events-none drop-shadow-[0_30px_62px_rgba(10,25,47,0.36)] dark:drop-shadow-[0_38px_86px_rgba(0,0,0,0.70)] sm:scale-[1.02] lg:-translate-y-[14%] lg:scale-[1.14] ${
+                isRTL ? 'lg:translate-x-[10%]' : 'lg:-translate-x-[10%]'
+              }`}
+              modelScale={2.58}
+            />
+          ) : null}
         </div>
       </div>
     </section>

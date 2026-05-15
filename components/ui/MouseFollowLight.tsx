@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react';
 
 export const MouseFollowLight = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [mousePosition, setMousePosition] = useState({ x: -9999, y: -9999 });
 
     useEffect(() => {
+        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!canHover || reduceMotion) return;
+
         const handleMouseMove = (e: MouseEvent) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
@@ -16,7 +20,7 @@ export const MouseFollowLight = () => {
 
     return (
         <div 
-            className="pointer-events-none fixed w-96 h-96 rounded-full opacity-20 blur-[100px] transition-all duration-200 ease-out z-50"
+            className="pointer-events-none fixed z-50 hidden h-96 w-96 rounded-full opacity-20 blur-[100px] transition-all duration-200 ease-out motion-reduce:hidden md:block"
             style={{
                 background: 'radial-gradient(circle, rgba(212, 175, 55, 0.4), transparent)',
                 left: `${mousePosition.x - 192}px`,

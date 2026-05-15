@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { X, Send, Loader2 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import CubeLoader from './ui/cube-loader';
@@ -18,7 +18,6 @@ export function ChatBot() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [showInitialPulse, setShowInitialPulse] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
@@ -56,13 +55,7 @@ export function ChatBot() {
                 timestamp: new Date(),
             }]);
         }
-    }, [isOpen]);
-
-    // Hide initial pulse after 5 seconds
-    useEffect(() => {
-        const timer = setTimeout(() => setShowInitialPulse(false), 5000);
-        return () => clearTimeout(timer);
-    }, []);
+    }, [isOpen, messages.length, t.welcomeMessage]);
 
     const handleSendMessage = async () => {
         if (!inputValue.trim() || isLoading) return;
@@ -130,7 +123,7 @@ export function ChatBot() {
             {/* Floating Chat Button with CubeLoader */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 w-20 h-20 bg-transparent text-white flex items-center justify-center group"
+                className="fixed bottom-[calc(5.9rem+env(safe-area-inset-bottom))] right-2.5 z-50 flex h-12 w-12 items-center justify-center bg-transparent text-white group md:bottom-5 md:right-5 md:h-16 md:w-16"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? 'Close chat' : 'Open chat'}
@@ -143,9 +136,9 @@ export function ChatBot() {
                             animate={{ rotate: 0, opacity: 1 }}
                             exit={{ rotate: 90, opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="w-16 h-16 rounded-full bg-gradient-to-br from-[#003366]/90 to-[#001a33]/90 backdrop-blur-sm flex items-center justify-center shadow-2xl hover:shadow-[#d4af37]/50"
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#003366]/90 to-[#001a33]/90 shadow-2xl backdrop-blur-sm hover:shadow-[#d4af37]/50 md:h-14 md:w-14"
                         >
-                            <X className="w-8 h-8 text-[#d4af37]" />
+                            <X className="h-5 w-5 text-[#d4af37] md:h-7 md:w-7" />
                         </motion.div>
                     ) : (
                         <motion.div
@@ -154,6 +147,7 @@ export function ChatBot() {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
+                            className="scale-[0.48] md:scale-[0.78]"
                         >
                             <CubeLoader />
                         </motion.div>
@@ -169,7 +163,7 @@ export function ChatBot() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.8 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className={`fixed bottom-40 md:bottom-24 right-3 md:right-6 z-50 w-[calc(100vw-1.5rem)] sm:w-[400px] h-[calc(100svh-12rem)] sm:h-[600px] max-h-[calc(100svh-8rem)] ${isArabic ? 'font-arabic' : ''
+                        className={`fixed inset-x-3 bottom-[calc(6.4rem+env(safe-area-inset-bottom))] z-50 h-[min(600px,calc(100dvh-8.2rem))] w-auto md:inset-x-auto md:bottom-24 md:right-6 md:h-[600px] md:w-[400px] md:max-w-[calc(100vw-3rem)] md:max-h-[calc(100vh-8rem)] ${isArabic ? 'font-arabic' : ''
                             }`}
                         dir={isArabic ? 'rtl' : 'ltr'}
                     >

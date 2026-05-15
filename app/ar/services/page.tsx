@@ -13,7 +13,7 @@ class MapErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean }
 > {
-  constructor(props: any) {
+  constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
@@ -65,10 +65,10 @@ export default function ServicesAr() {
           {/* Service Coverage Map */}
           <div className="mb-20">
             <div className="text-center mb-12">
-              <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-2xl">
+              <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 drop-shadow-2xl dark:text-white sm:text-5xl">
                 خدمات <FlipWords words={words} duration={3000} className="text-primary" /> احترافية
               </h1>
-              <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto drop-shadow-xl">
+              <p className="mx-auto max-w-3xl text-base leading-7 text-gray-700 drop-shadow-xl dark:text-gray-300 sm:text-xl">
                 تفخر بنيان مصر بخدمة المدن الرئيسية في جميع أنحاء مصر، وتقديم التميز في
                 البناء والتصميم الداخلي وخدمات التشطيبات.
               </p>
@@ -143,7 +143,7 @@ export default function ServicesAr() {
                   </li>
                 </ul>
               </div>
-              <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+              <div className="relative h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96">
                 <Image
                   src="/construction-site.jpg"
                   alt="موقع بناء مع معدات ثقيلة"
@@ -156,7 +156,7 @@ export default function ServicesAr() {
 
             {/* Interior Design Service */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1 h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+              <div className="relative order-2 h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96 md:order-1">
                 <Image
                   src="/interior-design.jpg"
                   alt="تصميم داخلي حديث"
@@ -221,7 +221,7 @@ export default function ServicesAr() {
                   </li>
                 </ul>
               </div>
-              <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+              <div className="relative h-72 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-800 sm:h-96">
                 <Image
                   src="/finishing.jpg"
                   alt="تشطيبات فاخرة"

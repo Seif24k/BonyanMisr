@@ -218,10 +218,10 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="rounded-[32px] p-8 md:p-12 relative z-10"
+                        className="relative z-10 rounded-[24px] p-5 sm:p-8 md:rounded-[32px] md:p-12"
                     >
                         {/* Heading */}
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                        <h2 className="mb-6 text-center text-2xl font-bold leading-tight text-gray-900 dark:text-white sm:text-3xl md:mb-8 md:text-4xl">
                             {t.heading}
                         </h2>
 
@@ -241,7 +241,7 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
                                 value={area}
                                 onChange={(e) => setArea(e.target.value)}
                                 placeholder={t.areaPlaceholder}
-                                className="w-full px-4 py-3 text-lg border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400"
+                                className="w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-base text-gray-900 outline-none transition-all placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-lg"
                             />
                         </div>
 
@@ -257,14 +257,14 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
                                         onClick={() => setPropertyType(type)}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                                        className={`min-h-[112px] rounded-xl border-2 p-3 transition-all duration-300 sm:p-4 ${
                                             propertyType === type
                                                 ? 'border-primary bg-primary/5 shadow-lg ring-2 ring-primary/20'
                                                 : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 hover:shadow-md'
                                         }`}
                                     >
                                         <div className="text-center">
-                                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                                            <h3 className="text-base font-bold leading-tight text-gray-900 dark:text-white sm:text-lg">
                                                 {t.propertyTypes[type]}
                                             </h3>
                                         </div>
@@ -285,19 +285,19 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
                                         onClick={() => setLevel(lvl)}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className={`p-6 rounded-xl border-2 transition-all duration-300 ${level === lvl
+                                        className={`rounded-xl border-2 p-4 transition-all duration-300 sm:p-6 ${level === lvl
                                                 ? 'border-primary bg-primary/5 shadow-lg ring-2 ring-primary/20'
                                                 : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 hover:shadow-md'
                                             }`}
                                     >
                                         <div className="text-center">
-                                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                                            <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
                                                 {t.levels[lvl].title}
                                             </h3>
-                                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">
                                                 {t.levels[lvl].subtitle}
                                             </p>
-                                            <p className="text-xs text-primary font-semibold mt-2">
+                                            <p className="mt-2 text-[11px] font-semibold text-primary sm:text-xs">
                                                 {formatNumber(currentPriceRanges[lvl].min, locale)} - {formatNumber(currentPriceRanges[lvl].max, locale)} {t.currency}/m²
                                             </p>
                                         </div>

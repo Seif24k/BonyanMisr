@@ -7,6 +7,15 @@ interface AtmosphereParticlesProps {
     color?: string; // Gold or White
 }
 
+type Particle = {
+    x: number;
+    y: number;
+    size: number;
+    speedY: number;
+    speedX: number;
+    opacity: number;
+};
+
 export const AtmosphereParticles: React.FC<AtmosphereParticlesProps> = ({
     particleCount = 40,
     color = '#d4af37' // Default Gold
@@ -14,6 +23,12 @@ export const AtmosphereParticles: React.FC<AtmosphereParticlesProps> = ({
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+
+        if (prefersReducedMotion || isCoarsePointer || saveData) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -31,51 +46,40 @@ export const AtmosphereParticles: React.FC<AtmosphereParticlesProps> = ({
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Particle {
-            x: number;
-            y: number;
-            size: number;
-            speedY: number;
-            speedX: number;
-            opacity: number;
+        const createParticle = (): Particle => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5,
+            speedY: Math.random() * -0.5 - 0.1,
+            speedX: Math.random() * 0.4 - 0.2,
+            opacity: Math.random() * 0.5 + 0.1,
+        });
 
-            constructor() {
-                this.x = Math.random() * canvas!.width;
-                this.y = Math.random() * canvas!.height;
-                this.size = Math.random() * 2 + 0.5; // Small dust specks
-                this.speedY = Math.random() * -0.5 - 0.1; // Float upwards slowly
-                this.speedX = Math.random() * 0.4 - 0.2; // Slight horizontal drift
-                this.opacity = Math.random() * 0.5 + 0.1;
+        const updateParticle = (particle: Particle) => {
+            particle.y += particle.speedY;
+            particle.x += particle.speedX;
+
+            if (particle.y < 0) {
+                particle.y = canvas.height;
+                particle.x = Math.random() * canvas.width;
             }
+            if (particle.x > canvas.width) particle.x = 0;
+            if (particle.x < 0) particle.x = canvas.width;
+        };
 
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-
-                // Reset if off screen
-                if (this.y < 0) {
-                    this.y = canvas!.height;
-                    this.x = Math.random() * canvas!.width;
-                }
-                if (this.x > canvas!.width) this.x = 0;
-                if (this.x < 0) this.x = canvas!.width;
-            }
-
-            draw() {
-                if (!ctx) return;
-                ctx.fillStyle = color; // Use the parsed color
-                ctx.globalAlpha = this.opacity;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            }
-        }
+        const drawParticle = (particle: Particle) => {
+            ctx.fillStyle = color;
+            ctx.globalAlpha = particle.opacity;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+        };
 
         const init = () => {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+                particles.push(createParticle());
             }
         };
 
@@ -84,8 +88,8 @@ export const AtmosphereParticles: React.FC<AtmosphereParticlesProps> = ({
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+                updateParticle(particle);
+                drawParticle(particle);
             });
 
             animationFrameId = requestAnimationFrame(animate);

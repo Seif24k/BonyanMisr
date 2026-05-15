@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { PremiumSectionHeader } from '@/components/ui/premium-section-header';
 
 const projectImagesRow1 = [
   {
@@ -106,10 +105,10 @@ export function PortfolioInfiniteSliderAr() {
   }, [isDragging]);
 
   return (
-    <section className="relative py-16 overflow-hidden bg-transparent">
+    <section className="relative overflow-hidden bg-transparent py-8 sm:py-16">
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white relative inline-block overflow-hidden">
+      <div className="mx-auto mb-8 max-w-7xl px-4 text-center sm:mb-12">
+        <h2 className="relative mb-3 inline-block overflow-hidden text-2xl font-bold text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
           <span className="relative z-10">المشاريع المميزة</span>
           <span className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent animate-shimmer-sweep" />
         </h2>
@@ -131,7 +130,7 @@ export function PortfolioInfiniteSliderAr() {
         {/* First Row - Scrolls Left */}
         <div 
           ref={row1Ref}
-          className="flex gap-6 mb-6 select-none"
+          className="mb-4 flex select-none gap-4 sm:mb-6 sm:gap-6"
           dir="ltr"
           style={{
             cursor: isDragging ? 'grabbing' : 'grab',
@@ -140,7 +139,7 @@ export function PortfolioInfiniteSliderAr() {
           }}
         >
           <div 
-            className="flex gap-6 animate-scroll-left"
+            className="animate-scroll-left flex gap-4 sm:gap-6"
             style={{
               animationPlayState: isPaused || isDragging ? 'paused' : 'running',
             }}
@@ -148,7 +147,7 @@ export function PortfolioInfiniteSliderAr() {
             {duplicatedRow1.map((image, index) => (
               <div
                 key={`row1-${index}`}
-                className="flex-shrink-0 w-[320px] aspect-video rounded-[14px] overflow-hidden border border-[rgba(212,175,55,0.15)] shadow-lg transition-all duration-300 hover:scale-[1.04] hover:border-[rgba(212,175,55,0.6)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)]"
+                className="w-[190px] flex-shrink-0 overflow-hidden rounded-[12px] border border-[rgba(212,175,55,0.15)] aspect-video shadow-lg transition-all duration-300 hover:scale-[1.04] hover:border-[rgba(212,175,55,0.6)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)] sm:w-[320px] sm:rounded-[14px]"
                 style={{
                   transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                 }}
@@ -171,7 +170,7 @@ export function PortfolioInfiniteSliderAr() {
         {/* Second Row - Scrolls Right */}
         <div 
           ref={row2Ref}
-          className="flex gap-6 select-none"
+          className="flex select-none gap-4 sm:gap-6"
           dir="ltr"
           style={{
             cursor: isDragging ? 'grabbing' : 'grab',
@@ -180,7 +179,7 @@ export function PortfolioInfiniteSliderAr() {
           }}
         >
           <div 
-            className="flex gap-6 animate-scroll-right"
+            className="animate-scroll-right flex gap-4 sm:gap-6"
             style={{
               animationPlayState: isPaused || isDragging ? 'paused' : 'running',
             }}
@@ -188,7 +187,7 @@ export function PortfolioInfiniteSliderAr() {
             {duplicatedRow2.map((image, index) => (
               <div
                 key={`row2-${index}`}
-                className="flex-shrink-0 w-[320px] aspect-video rounded-[14px] overflow-hidden border border-[rgba(212,175,55,0.15)] shadow-lg transition-all duration-300 hover:scale-[1.04] hover:border-[rgba(212,175,55,0.6)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)]"
+                className="w-[190px] flex-shrink-0 overflow-hidden rounded-[12px] border border-[rgba(212,175,55,0.15)] aspect-video shadow-lg transition-all duration-300 hover:scale-[1.04] hover:border-[rgba(212,175,55,0.6)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)] sm:w-[320px] sm:rounded-[14px]"
                 style={{
                   transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                 }}
@@ -247,6 +246,14 @@ export function PortfolioInfiniteSliderAr() {
 
         .animate-shimmer-sweep {
           animation: shimmer-sweep 3s ease-in-out infinite;
+        }
+
+        @media (pointer: coarse), (prefers-reduced-motion: reduce) {
+          .animate-scroll-left,
+          .animate-scroll-right,
+          .animate-shimmer-sweep {
+            animation: none;
+          }
         }
       `}</style>
     </section>

@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { BlueprintBackground } from '@/components/ui/BlueprintBackground';
 import { AtmosphereParticles } from '@/components/ui/AtmosphereParticles';
 import { AmbientColors } from '@/components/ui/AmbientColors';
+import { HomeHero } from '@/components/HomeHero';
 import PremiumServicesSection from '@/components/ui/premium-services-section';
 import TestimonialDetailed from '@/components/ui/testimonial-detailed';
 import TestimonialCards from '@/components/ui/testimonial-cards';
 import { PremiumStatsBanner } from '@/components/ui/premium-stats-banner';
-import { HomeHero } from '@/components/HomeHero';
 import Link from 'next/link';
 
 export default function Home() {

@@ -1,14 +1,16 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const ProfessionalConnectAr = () => {
   const [, setHoveredIndex] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: -9999, y: -9999 });
+  const isLoaded = true;
 
   useEffect(() => {
-    setIsLoaded(true);
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!canHover) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -105,26 +107,26 @@ export const ProfessionalConnectAr = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pb-32 pt-24 sm:p-8">
         {/* Header Section */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mb-10 text-center transition-all duration-1000 sm:mb-16 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-block mb-4 px-4 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20">
             <span className="text-sm font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               تواصل وتعاون
             </span>
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+          <h1 className="mb-5 text-4xl font-bold tracking-tight sm:text-5xl md:mb-6 md:text-7xl">
             <span className="bg-gradient-to-br from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-white dark:to-gray-400 bg-clip-text text-transparent">
               تواصل معنا
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-400 md:text-xl">
             انضم إلى مجتمعنا النابض بالحياة عبر منصات متعددة وابق على اتصال بأحدث التحديثات
           </p>
         </div>
 
         {/* Social Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto w-full">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
           {socialPlatforms.map((platform, index) => (
             <a
               key={platform.name}
@@ -137,7 +139,7 @@ export const ProfessionalConnectAr = () => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Card Container */}
-              <div className="relative bg-gradient-to-br from-white/80 to-gray-100/80 dark:from-slate-800/50 dark:to-slate-900/50 backdrop-blur-xl rounded-2xl p-5 sm:p-8 border border-gray-300/50 dark:border-slate-700/50 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-gray-400/50 dark:hover:border-slate-600/50">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-300/50 bg-gradient-to-br from-white/80 to-gray-100/80 p-5 backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:border-gray-400/50 dark:border-slate-700/50 dark:from-slate-800/50 dark:to-slate-900/50 dark:hover:border-slate-600/50 sm:p-8">
                 {/* Hover Gradient Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 
@@ -153,12 +155,12 @@ export const ProfessionalConnectAr = () => {
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className={`mb-4 inline-flex p-3 rounded-xl bg-gradient-to-br ${platform.gradient} text-white transform transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}>
+                  <div className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${platform.gradient} p-3 text-white transform transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     {platform.icon}
                   </div>
 
                   {/* Text */}
-                  <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-1 transition-colors duration-300">
+                  <h3 className="mb-1 text-base font-semibold text-gray-900 transition-colors duration-300 dark:text-white sm:text-lg">
                     {platform.name}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-500 text-sm transition-colors duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-400">
@@ -184,7 +186,7 @@ export const ProfessionalConnectAr = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className={`mt-16 text-center transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mt-10 text-center transition-all duration-1000 delay-700 sm:mt-16 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <button className="group relative inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-medium overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
             <span className="relative z-10">استكشف جميع المنصات</span>
             {/* Button Shimmer */}
@@ -194,8 +196,8 @@ export const ProfessionalConnectAr = () => {
       </div>
 
       {/* Mouse Follow Light */}
-      <div 
-        className="pointer-events-none fixed w-96 h-96 rounded-full opacity-20 blur-[100px] transition-all duration-200 ease-out"
+      <div
+        className="pointer-events-none fixed hidden h-96 w-96 rounded-full opacity-20 blur-[100px] transition-all duration-200 ease-out motion-reduce:hidden md:block"
         style={{
           background: 'radial-gradient(circle, rgba(147, 51, 234, 0.3), transparent)',
           left: `${mousePosition.x - 192}px`,

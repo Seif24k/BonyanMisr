@@ -28,7 +28,7 @@ export function PremiumSectionHeader({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative mb-6 inline-block text-5xl font-bold text-white md:text-6xl"
+        className="relative mb-6 inline-block max-w-full break-words text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl"
       >
         <span
           className="premium-header-shimmer bg-gradient-to-r from-slate-950 via-[#f5a623] to-slate-950 bg-clip-text text-transparent dark:from-white dark:via-[#f5a623] dark:to-white"

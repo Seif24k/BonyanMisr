@@ -57,7 +57,10 @@ const navItems: NavItem[] = [
 export function TubelightNavbar() {
   const pathname = usePathname();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -67,7 +70,6 @@ export function TubelightNavbar() {
   useEffect(() => {
     // Check for dark mode preference
     const darkMode = localStorage.getItem('darkMode') === 'true';
-    setIsDark(darkMode);
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -112,6 +114,10 @@ export function TubelightNavbar() {
   const getActiveIndex = () => {
     // Remove /ar prefix if present
     const cleanPath = pathname.replace('/ar', '') || '/';
+
+    if (cleanPath.startsWith('/project')) {
+      return navItems.findIndex(item => item.id === 'projects');
+    }
 
     const index = navItems.findIndex(item => {
       if (item.href === "/" && cleanPath === "/") return true;
@@ -249,8 +255,8 @@ export function TubelightNavbar() {
       </nav>
 
       {/* Mobile Navigation - Bottom */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="relative flex items-center justify-around p-1.5 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:hidden">
+        <div className="relative flex items-center justify-around rounded-full border border-white/20 bg-white/15 p-1.5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-black/15">
           {/* Tubelight Glow Effect - Bottom */}
           <motion.div
             className="absolute bottom-1 h-1 rounded-full mx-2"
@@ -281,8 +287,8 @@ export function TubelightNavbar() {
               >
                 <motion.div
                   className={`
-                    relative p-2 pt-2 pb-1 rounded-full text-center cursor-pointer
-                    flex flex-col items-center gap-0.5
+                    relative rounded-full px-1 py-2 text-center cursor-pointer
+                    flex flex-col items-center gap-1
                     ${isActive
                       ? "text-[#d4af37]"
                       : "text-gray-600 dark:text-gray-400"
@@ -303,8 +309,8 @@ export function TubelightNavbar() {
                     <span className={`relative z-10 ${isActive ? "[&_img]:brightness-0 [&_img]:invert-[0.7] [&_img]:sepia [&_img]:saturate-[5] [&_img]:hue-rotate-[10deg]" : ""}`}>{item.icon}</span>
                   </div>
 
-                  {/* Label - respects current language */}
-                  <span className="text-[10px] font-medium leading-tight">
+                  {/* Label - Arabic for mobile */}
+                  <span className="max-w-[4.25rem] truncate text-[9px] font-semibold leading-tight min-[390px]:text-[10px]">
                     {isArabic ? item.labelAr : item.label}
                   </span>
                 </motion.div>

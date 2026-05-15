@@ -203,12 +203,12 @@ export default function PortfolioAr() {
       <MouseFollowLight />
 
       {/* Circular Gallery Section */}
-      <div className="w-full relative z-10 pt-20" style={{ height: '120vh' }}>
-        <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
-          <div className="absolute top-16 z-10 w-full px-4">
+      <div className="relative z-10 h-[82svh] min-h-[520px] w-full pt-14 md:h-[120vh] md:min-h-0 md:pt-20">
+        <div className="sticky top-0 flex h-[82svh] min-h-[520px] w-full flex-col items-center justify-center overflow-hidden md:h-screen md:min-h-0">
+          <div className="absolute top-10 z-10 w-full px-4 md:top-16">
             <PremiumSectionHeader as="h1" title="تحفنا الفنية" />
           </div>
-          <div className="w-full h-full mt-20">
+          <div className="mt-16 h-full w-full md:mt-20">
             <CircularGallery items={galleryData} radius={650} autoRotateSpeed={0.015} />
           </div>
         </div>

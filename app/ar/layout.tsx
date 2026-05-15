@@ -16,7 +16,7 @@ export default function ArLayout({
   return (
     <>
       <TubelightNavbar />
-      <main className="flex-grow pb-24 md:pb-0">{children}</main>
+      <main className="flex-grow pb-[calc(7rem+env(safe-area-inset-bottom))] md:pb-0">{children}</main>
       <FooterAr />
       <ChatBot />
     </>

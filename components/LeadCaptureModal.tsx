@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent, KeyboardEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, AlertCircle, Check, Loader2 } from 'lucide-react';
+import { AlertCircle, Check, Loader2 } from 'lucide-react';
 
 // ============================================================================
 // TypeScript Interfaces and Types
@@ -129,19 +129,6 @@ const content = {
 // ============================================================================
 // Animation Variants
 // ============================================================================
-
-const modalVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-  },
-  exit: { 
-    opacity: 0,
-    transition: { duration: 0.2, ease: [0.4, 0, 1, 1] }
-  }
-};
 
 const successVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -379,7 +366,7 @@ export function LeadCaptureModal({
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-4"
         onKeyDown={handleKeyDown}
       >
         {/* Backdrop */}
@@ -402,7 +389,7 @@ export function LeadCaptureModal({
           aria-labelledby="modal-heading"
           aria-describedby="modal-subtitle"
           dir={isRTL ? 'rtl' : 'ltr'}
-          className="relative w-full max-w-md max-h-[90svh] overflow-y-auto bg-white/8 backdrop-blur-[24px] backdrop-saturate-[140%] border border-white/15 rounded-[24px] p-5 sm:p-8 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_2px_8px_rgba(212,175,55,0.1)] [box-shadow:inset_0_1px_1px_rgba(255,255,255,0.15)]"
+          className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-[20px] border border-white/15 bg-white/8 p-5 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_2px_8px_rgba(212,175,55,0.1)] backdrop-blur-[24px] backdrop-saturate-[140%] [box-shadow:inset_0_1px_1px_rgba(255,255,255,0.15)] sm:rounded-[24px] sm:p-8"
         >
           {/* Success Indicator */}
           <AnimatePresence>
@@ -422,10 +409,10 @@ export function LeadCaptureModal({
           </AnimatePresence>
 
           {/* Header */}
-          <div className="mb-6 text-center">
+          <div className="mb-5 text-center sm:mb-6">
             <h2
               id="modal-heading"
-              className="text-2xl md:text-3xl font-bold text-white mb-2"
+              className="mb-2 text-2xl font-bold leading-tight text-white md:text-3xl"
             >
               {t.heading}
             </h2>
@@ -438,7 +425,7 @@ export function LeadCaptureModal({
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
             {/* General Error */}
             {errors.general && (
               <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
@@ -462,7 +449,7 @@ export function LeadCaptureModal({
                 value={formData.fullName}
                 onChange={(e) => handleInputChange('fullName', e.target.value)}
                 onBlur={() => handleBlur('fullName')}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:outline-none focus:border-[#f59e0b] focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
                 placeholder={t.fields.fullName.placeholder}
                 disabled={isSubmitting}
               />
@@ -494,7 +481,7 @@ export function LeadCaptureModal({
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 onBlur={() => handleBlur('email')}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:outline-none focus:border-[#f59e0b] focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
                 placeholder={t.fields.email.placeholder}
                 disabled={isSubmitting}
               />
@@ -526,7 +513,7 @@ export function LeadCaptureModal({
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 onBlur={() => handleBlur('phone')}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:outline-none focus:border-[#f59e0b] focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
                 placeholder={t.fields.phone.placeholder}
                 disabled={isSubmitting}
               />
@@ -558,7 +545,7 @@ export function LeadCaptureModal({
                 value={formData.address}
                 onChange={(e) => handleInputChange('address', e.target.value)}
                 onBlur={() => handleBlur('address')}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:outline-none focus:border-[#f59e0b] focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white placeholder-gray-500 backdrop-blur-[8px] transition-all duration-200 focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_0_2px_rgba(245,158,11,0.2)]"
                 placeholder={t.fields.address.placeholder}
                 disabled={isSubmitting}
               />

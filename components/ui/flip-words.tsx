@@ -1,6 +1,6 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
@@ -14,6 +14,7 @@ export const FlipWords = ({
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [useStaticWord, setUseStaticWord] = useState(false);
 
   // thanks for the fix Julian - https://github.com/Julian-AT
   const startAnimation = useCallback(() => {
@@ -23,11 +24,43 @@ export const FlipWords = ({
   }, [currentWord, words]);
 
   useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
-      }, duration);
-  }, [isAnimating, duration, startAnimation]);
+    const updateMotionPreference = () => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+      const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+      setUseStaticWord(prefersReducedMotion || isCoarsePointer || Boolean(saveData));
+    };
+    const frameId = window.requestAnimationFrame(updateMotionPreference);
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pointerQuery = window.matchMedia('(pointer: coarse)');
+
+    motionQuery.addEventListener('change', updateMotionPreference);
+    pointerQuery.addEventListener('change', updateMotionPreference);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      motionQuery.removeEventListener('change', updateMotionPreference);
+      pointerQuery.removeEventListener('change', updateMotionPreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (useStaticWord || isAnimating) return;
+
+    const timer = setTimeout(() => {
+      startAnimation();
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [isAnimating, duration, startAnimation, useStaticWord]);
+
+  if (useStaticWord) {
+    return (
+      <span className={cn("inline-block px-2 text-left text-foreground", className)}>
+        {words[0]}
+      </span>
+    );
+  }
 
   return (
     <AnimatePresence

@@ -6,11 +6,11 @@ import { AtmosphereParticles } from '@/components/ui/AtmosphereParticles';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 import Image from 'next/image';
 import { AmbientColors } from '@/components/ui/AmbientColors';
+import { HomeHero } from '@/components/HomeHero';
 import PremiumServicesSectionAr from '@/components/ui/premium-services-section-ar';
 import TestimonialDetailedAr from '@/components/ui/testimonial-detailed-ar';
 import TestimonialCardsAr from '@/components/ui/testimonial-cards-ar';
 import { PremiumStatsBannerAr } from '@/components/ui/premium-stats-banner-ar';
-import { HomeHero } from '@/components/HomeHero';
 
 export default function HomeAr() {
   return (

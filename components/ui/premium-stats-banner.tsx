@@ -13,25 +13,25 @@ interface Stat {
 const stats: Stat[] = [
   {
     icon: <Clock className="w-8 h-8" />,
-    number: 15,
+    number: 7,
     suffix: '+',
     label: 'Years Experience',
   },
   {
     icon: <FileText className="w-8 h-8" />,
-    number: 200,
+    number: 30,
     suffix: '+',
     label: 'Projects Completed',
   },
   {
     icon: <Smile className="w-8 h-8" />,
-    number: 500,
+    number: 100,
     suffix: '+',
     label: 'Happy Clients',
   },
   {
     icon: <Users className="w-8 h-8" />,
-    number: 150,
+    number: 15,
     suffix: '+',
     label: 'Team Members',
   },
