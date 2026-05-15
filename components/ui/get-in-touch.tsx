@@ -105,7 +105,7 @@ export const ProfessionalConnect = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-block mb-4 px-4 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20">
@@ -113,7 +113,7 @@ export const ProfessionalConnect = () => {
               Connect & Collaborate
             </span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tight">
             <span className="bg-gradient-to-br from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-white dark:to-gray-400 bg-clip-text text-transparent">
               Get In Touch
             </span>
@@ -124,7 +124,7 @@ export const ProfessionalConnect = () => {
         </div>
 
         {/* Social Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto w-full">
           {socialPlatforms.map((platform, index) => (
             <a
               key={platform.name}
@@ -137,7 +137,7 @@ export const ProfessionalConnect = () => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Card Container */}
-              <div className="relative bg-gradient-to-br from-white/80 to-gray-100/80 dark:from-slate-800/50 dark:to-slate-900/50 backdrop-blur-xl rounded-2xl p-8 border border-gray-300/50 dark:border-slate-700/50 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-gray-400/50 dark:hover:border-slate-600/50">
+              <div className="relative bg-gradient-to-br from-white/80 to-gray-100/80 dark:from-slate-800/50 dark:to-slate-900/50 backdrop-blur-xl rounded-2xl p-5 sm:p-8 border border-gray-300/50 dark:border-slate-700/50 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-gray-400/50 dark:hover:border-slate-600/50">
                 {/* Hover Gradient Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
 

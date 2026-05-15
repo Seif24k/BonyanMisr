@@ -88,7 +88,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
         >
           <ChevronLeft className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
@@ -96,7 +96,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white dark:hover:bg-gray-700"
         >
           <ChevronRight className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
@@ -113,7 +113,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
               key={`${item.id}-${index}`}
               className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[45vw] group/card"
             >
-              <div className="relative h-[500px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative h-[350px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                 {/* Image */}
                 <div className="relative h-full w-full">
                   <Image
@@ -169,17 +169,6 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
           ))}
         </div>
       </div>
-
-      {/* Custom CSS for hiding scrollbar */}
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };

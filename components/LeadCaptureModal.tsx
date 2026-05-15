@@ -402,7 +402,7 @@ export function LeadCaptureModal({
           aria-labelledby="modal-heading"
           aria-describedby="modal-subtitle"
           dir={isRTL ? 'rtl' : 'ltr'}
-          className="relative w-full max-w-md bg-white/8 backdrop-blur-[24px] backdrop-saturate-[140%] border border-white/15 rounded-[24px] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_2px_8px_rgba(212,175,55,0.1)] [box-shadow:inset_0_1px_1px_rgba(255,255,255,0.15)]"
+          className="relative w-full max-w-md max-h-[90svh] overflow-y-auto bg-white/8 backdrop-blur-[24px] backdrop-saturate-[140%] border border-white/15 rounded-[24px] p-5 sm:p-8 shadow-[0_8px_40px_rgba(0,0,0,0.4),0_2px_8px_rgba(212,175,55,0.1)] [box-shadow:inset_0_1px_1px_rgba(255,255,255,0.15)]"
         >
           {/* Success Indicator */}
           <AnimatePresence>

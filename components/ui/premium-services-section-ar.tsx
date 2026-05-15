@@ -263,7 +263,7 @@ export default function PremiumServicesSectionAr() {
           className="text-center mb-16"
         >
           <h2
-            className="text-5xl md:text-6xl font-bold mb-4"
+            className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4"
             style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f5a623 100%)',
               WebkitBackgroundClip: 'text',

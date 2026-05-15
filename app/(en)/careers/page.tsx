@@ -2,10 +2,10 @@ import { HardHat, Palette, PaintBucket, TrendingUp, Shield, Users, Banknote } fr
 
 export default function Careers() {
   return (
-    <div className="min-h-screen py-20 px-4 bg-white dark:bg-gray-900">
+    <div className="min-h-screen pt-24 sm:pt-28 pb-20 px-4 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Build Your Future With Us
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -16,7 +16,7 @@ export default function Careers() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {/* Construction */}
-          <div className="p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="p-6 sm:p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <div className="mb-4 text-[#d4af37]">
               <HardHat className="w-16 h-16" strokeWidth={1.5} />
             </div>
@@ -33,7 +33,7 @@ export default function Careers() {
           </div>
 
           {/* Interior Design */}
-          <div className="p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="p-6 sm:p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <div className="mb-4 text-[#d4af37]">
               <Palette className="w-16 h-16" strokeWidth={1.5} />
             </div>
@@ -50,7 +50,7 @@ export default function Careers() {
           </div>
 
           {/* Finishing */}
-          <div className="p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="p-6 sm:p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <div className="mb-4 text-[#d4af37]">
               <PaintBucket className="w-16 h-16" strokeWidth={1.5} />
             </div>
@@ -68,7 +68,7 @@ export default function Careers() {
         </div>
 
         {/* Why Join Us */}
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-12">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 sm:p-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             Why Join BonyanMisr?
           </h2>

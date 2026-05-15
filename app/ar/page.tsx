@@ -1,9 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { FlipWords } from '@/components/ui/flip-words';
-import { Simple3DLogo } from '@/components/Simple3DLogo';
-import LightRays from '@/components/ui/LightRays';
 import { BlueprintBackground } from '@/components/ui/BlueprintBackground';
 import { AtmosphereParticles } from '@/components/ui/AtmosphereParticles';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
@@ -13,12 +10,11 @@ import PremiumServicesSectionAr from '@/components/ui/premium-services-section-a
 import TestimonialDetailedAr from '@/components/ui/testimonial-detailed-ar';
 import TestimonialCardsAr from '@/components/ui/testimonial-cards-ar';
 import { PremiumStatsBannerAr } from '@/components/ui/premium-stats-banner-ar';
+import { HomeHero } from '@/components/HomeHero';
 
 export default function HomeAr() {
-  const words = ["التميز", "الابتكار", "الجودة", "الدقة"];
-
   return (
-    <div className="min-h-screen relative" dir="rtl">
+    <div className="min-h-screen relative overflow-x-hidden" dir="rtl">
       {/* Ambient color blobs for atmospheric effect */}
       <AmbientColors />
       
@@ -30,55 +26,7 @@ export default function HomeAr() {
         <AtmosphereParticles particleCount={60} color="#d4af37" />
       </div>
       
-      {/* Hero Section - overflow-hidden restored to prevent horizontal scroll from canvas elements */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-transparent">
-
-        {/* Layer 3: Light Rays Effect */}
-        <div className="absolute inset-0 z-[1] mix-blend-screen opacity-70">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#ffffff"
-            raysSpeed={0.8}
-            lightSpread={0.6}
-            rayLength={2.5}
-            followMouse={false}
-            mouseInfluence={0.15}
-            fadeDistance={0.85}
-            saturation={1.3}
-            pulsating={false}
-          />
-        </div>
-
-        {/* 3D Logo - Properly configured */}
-        <Simple3DLogo />
-
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-auto mb-12">
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-2xl">
-            بناء مستقبل مصر مع<br />
-            <span className="text-primary inline-flex items-center justify-center">
-              <FlipWords words={words} duration={3000} className="text-primary" />
-            </span>
-          </h1>
-          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto drop-shadow-xl">
-            التميز في البناء والتصميم الداخلي والتشطيبات الفاخرة.
-            نحول المساحات إلى تحف فنية في جميع أنحاء مصر.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/ar/portfolio"
-              className="px-8 py-4 bg-primary hover:bg-primary-dark text-gray-900 font-bold rounded-lg transition shadow-lg hover:shadow-2xl"
-            >
-              عرض المشاريع
-            </Link>
-            <Link
-              href="/ar/contact"
-              className="px-8 py-4 bg-white/10 hover:bg-white/20 dark:bg-white/10 dark:hover:bg-white/20 text-gray-900 dark:text-white font-bold rounded-lg transition backdrop-blur-sm border border-gray-400/30 dark:border-white/20 hover:border-gray-500/40 dark:hover:border-white/30 shadow-lg"
-            >
-              اتصل بنا
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeHero locale="ar" />
 
       {/* Premium Services Section */}
       <PremiumServicesSectionAr />

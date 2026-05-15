@@ -60,12 +60,12 @@ export default function Services() {
             {/* Mouse Follow Light */}
             <MouseFollowLight />
 
-            <div className="relative z-10 pt-32 pb-20 px-4">
+            <div className="relative z-10 pt-24 sm:pt-32 pb-20 px-4">
                 <div className="max-w-7xl mx-auto">
                     {/* Service Coverage Map */}
                     <div className="mb-20">
                         <div className="text-center mb-12">
-                            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-2xl">
+                            <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-2xl">
                                 Expert <FlipWords words={words} duration={3000} className="text-primary" /> Services
                             </h1>
                             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto drop-shadow-xl">
@@ -144,7 +144,7 @@ export default function Services() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
                                 <Image
                                     src="/construction-site.jpg"
                                     alt="Construction site with heavy machinery"
@@ -157,7 +157,7 @@ export default function Services() {
 
                         {/* Interior Design Service */}
                         <div className="grid md:grid-cols-2 gap-12 items-center">
-                            <div className="order-2 md:order-1 h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="order-2 md:order-1 h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
                                 <Image
                                     src="/interior-design.jpg"
                                     alt="Modern interior design"
@@ -222,7 +222,7 @@ export default function Services() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
+                            <div className="h-64 sm:h-80 md:h-96 bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden relative">
                                 <Image
                                     src="/finishing.jpg"
                                     alt="High-end finishing work"

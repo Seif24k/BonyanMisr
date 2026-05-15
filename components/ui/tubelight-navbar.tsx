@@ -249,8 +249,8 @@ export function TubelightNavbar() {
       </nav>
 
       {/* Mobile Navigation - Bottom */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pb-4">
-        <div className="relative flex items-center justify-around p-2 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="relative flex items-center justify-around p-1.5 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg">
           {/* Tubelight Glow Effect - Bottom */}
           <motion.div
             className="absolute bottom-1 h-1 rounded-full mx-2"
@@ -281,8 +281,8 @@ export function TubelightNavbar() {
               >
                 <motion.div
                   className={`
-                    relative p-4 rounded-full text-center cursor-pointer
-                    flex flex-col items-center gap-1
+                    relative p-2 pt-2 pb-1 rounded-full text-center cursor-pointer
+                    flex flex-col items-center gap-0.5
                     ${isActive
                       ? "text-[#d4af37]"
                       : "text-gray-600 dark:text-gray-400"
@@ -303,9 +303,9 @@ export function TubelightNavbar() {
                     <span className={`relative z-10 ${isActive ? "[&_img]:brightness-0 [&_img]:invert-[0.7] [&_img]:sepia [&_img]:saturate-[5] [&_img]:hue-rotate-[10deg]" : ""}`}>{item.icon}</span>
                   </div>
 
-                  {/* Label - Arabic for mobile */}
-                  <span className="text-[10px] font-medium">
-                    {item.labelAr}
+                  {/* Label - respects current language */}
+                  <span className="text-[10px] font-medium leading-tight">
+                    {isArabic ? item.labelAr : item.label}
                   </span>
                 </motion.div>
               </Link>

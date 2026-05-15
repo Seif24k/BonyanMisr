@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+/* ── Global Responsive Base ── */
+html,
+body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+/* Faster tap response on mobile */
+a,
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+/* Hide scrollbar utility – used by testimonial / horizontal-scroll carousels */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @theme {
   --color-primary: #d4af37;
   --color-primary-dark: #b8860b;

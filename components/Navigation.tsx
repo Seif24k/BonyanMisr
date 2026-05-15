@@ -48,8 +48,6 @@ export default function Navigation() {
 
   const toggleDarkMode = () => {
     const newDarkMode = !isDark;
-    console.log('Toggle dark mode:', newDarkMode);
-    console.log('HTML element before:', document.documentElement.classList.toString());
 
     setIsDark(newDarkMode);
     if (newDarkMode) {
@@ -58,7 +56,6 @@ export default function Navigation() {
       document.documentElement.classList.remove('dark');
     }
 
-    console.log('HTML element after:', document.documentElement.classList.toString());
     localStorage.setItem('darkMode', newDarkMode.toString());
   };
 

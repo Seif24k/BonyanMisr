@@ -93,7 +93,7 @@ const TestimonialCard = ({ image, quote, author, role }: TestimonialCardProps) =
         )}
 
         {/* Main card */}
-        <div className="max-w-80 bg-black text-white rounded-2xl relative">
+        <div className="w-full bg-black text-white rounded-2xl relative">
           <div className="relative -mt-px overflow-hidden rounded-2xl">
             <img
               src={image}
@@ -150,9 +150,11 @@ export default function TestimonialCardsAr() {
   ];
 
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide px-1" dir="rtl">
       {testimonials.map((testimonial, index) => (
-        <TestimonialCard key={index} {...testimonial} />
+        <div key={index} className="flex-shrink-0 w-[280px] sm:w-[300px] snap-center">
+          <TestimonialCard {...testimonial} />
+        </div>
       ))}
     </div>
   );

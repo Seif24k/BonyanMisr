@@ -90,7 +90,7 @@ function CountUpNumber({ end, duration = 2000 }: { end: number; duration?: numbe
   }, [isVisible, end, duration]);
 
   return (
-    <div ref={ref} className="text-[3.5rem] font-bold text-[#0a1628] leading-none">
+    <div ref={ref} className="text-[2.5rem] sm:text-[3.5rem] font-bold text-[#0a1628] leading-none">
       {count}
     </div>
   );
@@ -159,7 +159,7 @@ export function PremiumStatsBanner() {
 
       {/* Stats Container */}
       <div className="relative max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
           {stats.map((stat, index) => (
             <div
               key={index}

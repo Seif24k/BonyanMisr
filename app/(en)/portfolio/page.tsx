@@ -203,7 +203,7 @@ export default function Portfolio() {
       <MouseFollowLight />
 
       {/* Circular Gallery Section */}
-      <div className="w-full relative z-10 pt-20" style={{ height: '120vh' }}>
+      <div className="w-full relative z-10 pt-20 h-[80svh] md:h-[120vh]">
         <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
           <div className="absolute top-16 z-10 w-full px-4">
             <PremiumSectionHeader as="h1" title="Our Masterpieces" />
