@@ -1,0 +1,43 @@
+// Prisma Schema for Lead Capture
+// Database: SQLite for local development, MySQL for production
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Contact Information
+  fullName  String
+  email     String
+  phone     String
+  address   String?
+
+  // Metadata
+  locale    String   @default("en") // 'en' or 'ar'
+  timestamp String   // ISO 8601 format
+
+  // Calculation Details
+  area              Float?
+  propertyType      String?  // 'residential' or 'commercial'
+  finishingLevel    String?  // 'economic', 'standard', or 'luxury'
+  estimatedCostMin  Float?
+  estimatedCostMax  Float?
+
+  // Tracking
+  ipAddress         String?
+  userAgent         String?
+  referralSource    String?
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("leads")
+}
