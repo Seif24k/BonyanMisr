@@ -108,11 +108,36 @@ export function PortfolioInfiniteSlider() {
     <section className="relative overflow-hidden bg-transparent py-8 sm:py-16">
       {/* Section Header */}
       <div className="mx-auto mb-8 max-w-7xl px-4 text-center sm:mb-12">
-        <h2 className="relative mb-3 inline-block overflow-hidden text-2xl font-bold text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
-          <span className="relative z-10">Featured Projects</span>
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent animate-shimmer-sweep" />
+        <h2 className="relative mb-3 inline-block overflow-hidden text-3xl font-extrabold leading-tight tracking-normal sm:text-5xl md:text-6xl">
+          <span
+            className="quick-look-header-shimmer relative z-10 bg-gradient-to-r from-slate-950 via-[#f5a623] to-slate-950 bg-clip-text text-transparent dark:from-white dark:via-[#f5a623] dark:to-white"
+            style={{
+              animation: 'quick-look-header-shimmer 3s linear infinite',
+              backgroundSize: '200% auto',
+            }}
+          >
+            Quick Look
+          </span>
+          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-[#fff1b8]/35 to-transparent animate-shimmer-sweep" />
         </h2>
+        <div className="mx-auto h-1 w-28 rounded-full bg-gradient-to-r from-transparent via-[#f5a623] to-transparent shadow-[0_0_22px_rgba(245,166,35,0.45)]" />
       </div>
+
+      <style jsx>{`
+        @keyframes quick-look-header-shimmer {
+          0% {
+            background-position: 0% center;
+          }
+
+          100% {
+            background-position: 200% center;
+          }
+        }
+
+        .quick-look-header-shimmer {
+          animation: quick-look-header-shimmer 3s linear infinite;
+        }
+      `}</style>
 
       {/* Slider Container with Edge Fade */}
       <div 

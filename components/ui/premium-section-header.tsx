@@ -32,7 +32,10 @@ export function PremiumSectionHeader({
       >
         <span
           className="premium-header-shimmer bg-gradient-to-r from-slate-950 via-[#f5a623] to-slate-950 bg-clip-text text-transparent dark:from-white dark:via-[#f5a623] dark:to-white"
-          style={{ backgroundSize: "200% auto" }}
+          style={{
+            animation: "premium-header-shimmer 3s linear infinite",
+            backgroundSize: "200% auto",
+          }}
         >
           {title}
         </span>

@@ -14,7 +14,7 @@ export default function TextHoverEffect({ text, className = '' }: TextHoverEffec
       style={{ perspective: 800 }}
     >
       <span
-        className={`text-6xl font-bold tracking-tight text-white
+        className={`gold-service-text text-6xl font-bold tracking-tight
           transition-all duration-700 ease-out
           inline-block leading-normal drop-shadow-2xl ${className}`}
       >
@@ -24,17 +24,38 @@ export default function TextHoverEffect({ text, className = '' }: TextHoverEffec
       {/* Shimmer overlay only */}
       <span
         className={`pointer-events-none absolute inset-0 rounded
-          bg-gradient-to-r from-black/0 via-black/20 to-black/0
-          dark:from-white/0 dark:via-white/20 dark:to-white/0
+          bg-gradient-to-r from-transparent via-[#fff0b8]/30 to-transparent
           opacity-0 group-hover:opacity-100
           transition-opacity duration-700
           animate-shimmer`}
         style={{
-          mixBlendMode: 'overlay',
+          mixBlendMode: 'screen',
         }}
       />
 
       <style jsx>{`
+        .gold-service-text {
+          color: transparent;
+          background-image: linear-gradient(to right, #020617, #f5a623, #020617);
+          background-size: 200% auto;
+          background-clip: text;
+          -webkit-background-clip: text;
+          animation: service-title-gold 3s linear infinite;
+        }
+
+        :global(.dark) .gold-service-text {
+          background-image: linear-gradient(to right, #ffffff, #f5a623, #ffffff);
+        }
+
+        @keyframes service-title-gold {
+          0% {
+            background-position: 0% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
