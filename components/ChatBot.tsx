@@ -29,6 +29,7 @@ export function ChatBot() {
         title: isArabic ? 'مساعد بنيان مصر' : 'BonyanMisr Assistant',
         placeholder: isArabic ? 'اكتب رسالتك هنا...' : 'Type your message...',
         send: isArabic ? 'إرسال' : 'Send',
+        close: isArabic ? 'إغلاق المحادثة' : 'Close chat',
         welcomeMessage: isArabic
             ? 'مرحباً! كيف يمكنني مساعدتك بشأن خدمات البناء والتصميم الداخلي؟'
             : 'Hello! How can I help you with our construction and interior design services?',
@@ -175,9 +176,9 @@ export function ChatBot() {
                                 
                                 <div className="flex flex-col h-full rounded-[32px] overflow-hidden relative z-10">
                                     {/* Header */}
-                                    <div className="bg-gradient-to-r from-[#003366] to-[#001a33] px-6 py-4 flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center relative overflow-hidden">
+                                    <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-[#003366] to-[#001a33] px-4 py-3 sm:px-6 sm:py-4">
+                                        <div className="flex min-w-0 items-center gap-3">
+                                            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
                                                 <Image
                                                     src="/bonyanmisr-logo.png"
                                                     alt="BonyanMisr Logo"
@@ -185,13 +186,21 @@ export function ChatBot() {
                                                     className="object-cover scale-110"
                                                 />
                                             </div>
-                                            <div>
-                                                <h3 className="font-semibold text-white">{t.title}</h3>
+                                            <div className="min-w-0">
+                                                <h3 className="truncate font-semibold text-white">{t.title}</h3>
                                                 <p className="text-xs text-gray-300">
                                                     {isArabic ? 'متصل الآن' : 'Online now'}
                                                 </p>
                                             </div>
                                         </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:ring-offset-2 focus:ring-offset-[#003366]"
+                                            aria-label={t.close}
+                                        >
+                                            <X className="h-5 w-5 text-[#d4af37]" />
+                                        </button>
                                     </div>
 
                                     {/* Messages Container */}

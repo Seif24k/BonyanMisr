@@ -52,7 +52,7 @@ const canUseEnhancedHeroEffects = () => {
   if (typeof window === 'undefined') return false;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDesktopWidth = window.matchMedia('(min-width: 768px)').matches;
+  const isDesktopWidth = window.matchMedia('(min-width: 1024px)').matches;
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
 
@@ -65,7 +65,7 @@ function useEnhancedHeroEffects() {
   useEffect(() => {
     const queries = [
       window.matchMedia('(prefers-reduced-motion: reduce)'),
-      window.matchMedia('(min-width: 768px)'),
+      window.matchMedia('(min-width: 1024px)'),
       window.matchMedia('(hover: hover) and (pointer: fine)'),
     ];
     const update = () => setEnabled(canUseEnhancedHeroEffects());

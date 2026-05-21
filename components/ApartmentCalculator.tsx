@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LeadCaptureModal, LeadData } from './LeadCaptureModal';
 
@@ -130,6 +130,7 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
     const [showResult, setShowResult] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const hasSubmittedRef = useRef(false);
 
     const t = content[locale];
     const isRTL = locale === 'ar';
@@ -138,6 +139,7 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
     useEffect(() => {
         const submitted = checkSubmissionStatus();
         setHasSubmitted(submitted);
+        hasSubmittedRef.current = submitted;
     }, []);
 
     const handleCalculate = () => {
@@ -184,6 +186,7 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
             console.log('Lead saved successfully:', result);
 
             // Update submission status
+            hasSubmittedRef.current = true;
             setHasSubmitted(true);
             setSubmissionStatus(true);
 
@@ -197,8 +200,11 @@ export default function ApartmentCalculator({ locale }: ApartmentCalculatorProps
     };
 
     const handleModalClose = () => {
-        // Currently unused, for future enhancement
         setShowModal(false);
+        if (!hasSubmittedRef.current) {
+            setShowResult(false);
+            setResult(null);
+        }
     };
 
     const isValid = area && parseFloat(area) > 0 && level;

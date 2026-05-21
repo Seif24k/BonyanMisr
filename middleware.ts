@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   const response = NextResponse.next();
 
   // Security Headers
@@ -30,9 +29,10 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
-    img-src 'self' data: https:;
+    img-src 'self' data: blob: https:;
     font-src 'self' data:;
-    connect-src 'self';
+    connect-src 'self' https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com;
+    worker-src 'self' blob:;
     frame-ancestors 'none';
     base-uri 'self';
     form-action 'self';

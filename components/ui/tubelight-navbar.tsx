@@ -254,6 +254,33 @@ export function TubelightNavbar() {
         </div>
       </nav>
 
+      {/* Mobile Controls - Theme & Language */}
+      <div
+        className="fixed right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-[60] md:hidden"
+      >
+        <div className="flex items-center gap-1 rounded-full border border-slate-900/10 bg-slate-50/90 p-1 shadow-[0_14px_34px_rgba(10,25,47,0.22)] backdrop-blur-xl dark:border-white/15 dark:bg-[#071225]/90 dark:shadow-[0_14px_34px_rgba(0,0,0,0.42)]">
+          <Link
+            href={isArabic ? pathname.replace(/^\/ar/, '') || '/' : `/ar${pathname === '/' ? '' : pathname}`}
+            className="flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-black text-slate-700 transition-colors hover:text-[#d4af37] dark:text-slate-100 dark:hover:text-[#d4af37]"
+            aria-label={isArabic ? 'Switch to English' : 'Switch to Arabic'}
+          >
+            {isArabic ? 'EN' : 'AR'}
+          </Link>
+
+          <div className="h-5 w-px bg-slate-400/40 dark:bg-white/20" />
+
+          <button
+            type="button"
+            onClick={toggleDarkMode}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-700 transition-colors hover:text-[#d4af37] focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:ring-offset-2 focus:ring-offset-slate-50 dark:text-slate-100 dark:hover:text-[#d4af37] dark:focus:ring-offset-[#071225]"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={isDark}
+          >
+            <MoonIcon />
+          </button>
+        </div>
+      </div>
+
       {/* Mobile Navigation - Bottom */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:hidden">
         <div className="relative flex items-center justify-around rounded-full border border-white/20 bg-white/15 p-1.5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-black/15">
